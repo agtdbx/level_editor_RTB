@@ -3,7 +3,7 @@ project(editeur_RTB)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(editeur_RTB src/main.cpp src/Menu.cpp include/Menu.h src/Button.cpp include/Button.h src/Functions.cpp include/Functions.h src/Select.cpp include/Select.h src/Switch.cpp include/Switch.h)
+add_executable(editeur_RTB src/main.cpp src/Menu.cpp include/Menu.h src/Button.cpp include/Button.h src/Functions.cpp include/Functions.h src/Select.cpp include/Select.h src/Switch.cpp include/Switch.h src/Input.cpp include/Input.h)
 
 INCLUDE_DIRECTORIES(/usr/local)
 

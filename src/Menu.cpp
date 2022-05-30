@@ -22,12 +22,17 @@ void Menu::initButton() {
     SDL_Color blue = {0, 0, 255, 100};
 
     //Menu principal
-    this->butJouer = Button("Jouer", 40, 1, this->winW/2 - 100, this->winH/2 - 100, 200, 50, colorOff, colorOn, 2, black);
-    this->butOptions = Button("Options", 40, 1,this->winW/2 - 100, this->winH/2, 200, 50, colorOff, colorOn,2, black);
-    this->butQuitter = Button("Quitter", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
+    this->butCreer   = Button("Creer"  , 40, 1, this->winW/2 - 100, this->winH/2 - 150, 200, 50, colorOff, colorOn, 2, black);
+    this->butCharger = Button("Charger", 40, 1, this->winW/2 - 100, this->winH/2 - 50 , 200, 50, colorOff, colorOn, 2, black);
+    this->butOptions = Button("Options", 40, 1,this->winW/2 - 100 , this->winH/2 + 50 , 200, 50, colorOff, colorOn, 2, black);
+    this->butQuitter = Button("Quitter", 40, 1, this->winW/2 - 100, this->winH/2 + 150, 200, 50, colorOff, colorOn, 2, black);
 
-    //Choix des niveaux
-    this->butRetourJouer = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
+    //Création d'une nouvelle map
+    this->inputNewName = Input("Nom de la map", 40, 1, this->winW/2 - 200, this->winH/2 - 100, 400, 50, colorOff, colorOn,2, black);
+    this->butRetourCreer = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
+
+    // Chargement
+    this->butRetourCharger = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 
     //Options
     //Graphic
@@ -61,6 +66,17 @@ void Menu::input() {
                         this->run = false;
                     }
                 }
+                if ((event.key.keysym.sym >= 48 && event.key.keysym.sym <= 57) || (event.key.keysym.sym >= 97 && event.key.keysym.sym <= 122) || event.key.keysym.sym == 8 || event.key.keysym.sym == 32){
+                    if (fenetre == 3){
+                        if (this->inputNewName.getWrite()){
+                            this->inputNewName.giveInput(event.key.keysym.sym);
+                        }
+                    }
+                }
+
+                char c = event.key.keysym.sym;
+                std::cout << "Autre : " << event.key.keysym.sym << " -> " << c << std::endl;
+
                 break;
         }
     }
@@ -70,8 +86,11 @@ void Menu::input() {
 void Menu::tick() {
     switch (this->fenetre) {
         case 0:
-            if (this->butJouer.clicOnButton()){
+            if (this->butCreer.clicOnButton()){
                 fenetre = 1;
+            }
+            else if (this->butCharger.clicOnButton()){
+                fenetre = 3;
             }
             else if (this->butOptions.clicOnButton()){
                 fenetre = 20;
@@ -82,7 +101,7 @@ void Menu::tick() {
             break;
 
         case 1:
-             if (this->butRetourJouer.clicOnButton()){
+            if (this->butRetourCreer.clicOnButton()){
                 this->fenetre = 0;
             }
             break;
@@ -104,6 +123,12 @@ void Menu::tick() {
                 this->fenetre = 0;
             }
             break;
+
+        case 3:
+            if (this->butRetourCharger.clicOnButton()){
+                this->fenetre = 0;
+            }
+            break;
     }
 }
 
@@ -117,7 +142,8 @@ void Menu::render() {
     switch (this->fenetre) {
         case 0:
             drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
-            this->butJouer.draw(this->renderer);
+            this->butCreer.draw(this->renderer);
+            this->butCharger.draw(this->renderer);
             this->butOptions.draw(this->renderer);
             this->butQuitter.draw(this->renderer);
 
@@ -126,7 +152,7 @@ void Menu::render() {
         case 1:
             drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
 
-            this->butRetourJouer.draw(this->renderer);
+            this->butRetourCreer.draw(this->renderer);
             break;
 
         case 20:{
@@ -154,6 +180,13 @@ void Menu::render() {
 
             this->butRetourOptions.draw(this->renderer);
             break;}
+
+        case 3:
+            drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
+
+            this->inputNewName.draw(this->renderer);
+            this->butRetourCharger.draw(this->renderer);
+            break;
     }
 
     SDL_RenderPresent(this->renderer);
@@ -254,16 +287,22 @@ void Menu::setScreenSize() {
     this->fullScreen.setX(this->winW/2 - 20);
 
     //Menu principal
-    this->butJouer.setX(this->winW/2 - 100);
-    this->butJouer.setY(this->winH/2 - 100);
+    this->butCreer.setX(this->winW/2 - 100);
+    this->butCreer.setY(this->winH/2 - 150);
+    this->butCharger.setX(this->winW/2 - 100);
+    this->butCharger.setY(this->winH/2 - 50);
     this->butOptions.setX(this->winW/2 - 100);
-    this->butOptions.setY(this->winH/2);
+    this->butOptions.setY(this->winH/2 + 50);
     this->butQuitter.setX(this->winW/2 - 100);
-    this->butQuitter.setY(this->winH/2 + 100);
+    this->butQuitter.setY(this->winH/2 + 150);
 
-    //Choix des niveaux
-    this->butRetourJouer.setX(this->winW/2 - 100);
-    this->butRetourJouer.setY(this->winH-50 - 100);
+    //Création d'une nouvelle map
+    this->butRetourCreer.setX(this->winW/2 - 100);
+    this->butRetourCreer.setY(this->winH-50 - 100);
+
+    // Chargement
+    this->butRetourCharger.setX(this->winW/2 - 100);
+    this->butRetourCharger.setY(this->winH-50 - 100);
 
     //Options
     //Graphic

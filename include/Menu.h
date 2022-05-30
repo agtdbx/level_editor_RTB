@@ -9,6 +9,7 @@
 #include "../include/Button.h"
 #include "../include/Select.h"
 #include "../include/Switch.h"
+#include "../include/Input.h"
 
 class Menu {
 private:
@@ -17,13 +18,15 @@ private:
     int winW, winH, fenetre, spacingWithScreen, borderSize;
     float lastClic, lastTime;
     bool run, continuer;
-    Button butJouer, butOptions, butQuitter,
-            butRetourJouer,
+    Button butCreer, butCharger, butOptions, butQuitter,
+            butRetourCreer,
+            butRetourCharger,
             butGraphics,
             butCredit,
             butRetourOptions;
     Select butChoixRes;
     Switch fullScreen;
+    Input inputNewName, inputNewW, inputNewH;
 
     void initButton();
     void input();
