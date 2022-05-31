@@ -5,6 +5,8 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "../include/Menu.h"
+#include "../include/Editor.h"
+
 int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     TTF_Init();
@@ -20,7 +22,20 @@ int main() {
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
     Menu menu = Menu(window, renderer, winW, winH);
-    menu.start();
+    Editor editor = Editor(renderer, winW, winH);
+
+    bool run = true;
+
+    while (run){
+        if (menu.start()){
+            editor.setVariables(menu.getWinWidth(), menu.getWinHeight(), menu.getMap(), menu.getMapname(), menu.getFilename());
+            editor.start();
+        }
+        else{
+            run = false;
+        }
+    }
+
 
     Mix_Quit();
     IMG_Quit();

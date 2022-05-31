@@ -10,6 +10,7 @@
 #include "../include/Select.h"
 #include "../include/Switch.h"
 #include "../include/Input.h"
+#include "../include/Map.h"
 
 class Menu {
 private:
@@ -18,6 +19,8 @@ private:
     int winW, winH, fenetre, spacingWithScreen, borderSize;
     float lastClic, lastTime;
     bool run, continuer;
+    char* mapname;
+    char* filename;
     Button butCreer, butCharger, butOptions, butQuitter,
             butValiderCreer,
             butRetourCreer,
@@ -28,6 +31,7 @@ private:
     Select butChoixRes;
     Switch fullScreen;
     Input inputNewName, inputNewW, inputNewH;
+    Map map;
 
     void initButton();
     void input();
@@ -48,6 +52,9 @@ public:
     bool start();
     int getWinWidth();
     int getWinHeight();
+    Map getMap();
+    char* getMapname();
+    char* getFilename();
 };
 
 

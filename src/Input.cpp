@@ -189,3 +189,7 @@ char *Input::getValue() {
 bool Input::getWrite() {
     return this->write;
 }
+
+bool Input::isEmpty() {
+    return this->value == "";
+}

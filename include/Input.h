@@ -33,6 +33,7 @@ public:
     void setShift(bool state);
     char* getValue();
     bool getWrite();
+    bool isEmpty();
 };
 
 

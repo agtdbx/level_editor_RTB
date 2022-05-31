@@ -31,9 +31,9 @@ void Menu::initButton() {
 
     //Création d'une nouvelle map
     this->inputNewName = Input("Nom de la map", 40, 1,20, false, this->winW/2 - 250, this->winH/2 - 100, 500, 50, colorOff, colorOn,2, black, writeColor);
-    this->inputNewW = Input("Largeur", 40, 1,4, true, this->winW/2 - 175, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
-    this->inputNewH = Input("Hauteur", 40, 1,4, true, this->winW/2 + 25, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
-    this->butValiderCreer = Button("Valier", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
+    this->inputNewW = Input("Largeur", 40, 1,3, true, this->winW/2 - 175, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
+    this->inputNewH = Input("Hauteur", 40, 1,3, true, this->winW/2 + 25, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
+    this->butValiderCreer = Button("Valider", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
     this->butRetourCreer = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 
     // Chargement
@@ -116,7 +116,25 @@ void Menu::tick() {
 
         case 1:
             if (this->butValiderCreer.clicOnButton()){
-//                this->fenetre = 0;
+                if (!this->inputNewName.isEmpty() && !this->inputNewW.isEmpty() && !this->inputNewH.isEmpty()){
+                    char * cw = this->inputNewW.getValue();
+                    char * ch = this->inputNewH.getValue();
+                    int w = atoi(cw);
+                    int h = atoi(ch);
+                    if (w <= 16){
+                        w = 16;
+                    }
+                    if (h <= 9){
+                        h = 9;
+                    }
+                    this->map = Map(w, h);
+                    this->mapname = this->inputNewName.getValue();
+                    this->filename = this->inputNewName.getValue();
+
+                    this->fenetre = 0;
+                    this->run = false;
+                    this->continuer = true;
+                }
             }
             else if (this->butRetourCreer.clicOnButton()){
                 this->fenetre = 0;
@@ -387,6 +405,9 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer, int winW, int winH) {
     this->borderSize = 3;
     this->lastClic = 0.0;
     this->lastTime = 0.0;
+    this->map = Map();
+    this->mapname = "";
+    this->filename = "";
 
     this->initButton();
 
@@ -426,4 +447,16 @@ int Menu::getWinWidth() {
 
 int Menu::getWinHeight() {
     return this->winH;
+}
+
+Map Menu::getMap() {
+    return this->map;
+}
+
+char *Menu::getMapname() {
+    return this->mapname;
+}
+
+char *Menu::getFilename() {
+    return this->filename;
 }
