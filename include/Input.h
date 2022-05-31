@@ -11,25 +11,26 @@
 
 class Input {
 private:
-    int x, y, w, h, textSize, textAlign, borderSize;
+    int x, y, w, h, textSize, textAlign, borderSize, maxLength;
     float lastClick;
-    bool write, mouseOver;
+    bool write, mouseOver, shift, intOnly;
     std::string value;
     char* text;
-    SDL_Color colorOff, colorOn, borderColor;
+    SDL_Color colorOff, colorOn, borderColor, writeColor;
 
     void mouseOnButton();
     void clicOnButton();
 
 public:
     Input();
-    Input(char* text, int textSize, int textAlign, int x, int y, int w, int h, SDL_Color colorOff, SDL_Color colorOn, int borderSize, SDL_Color borderColor);
+    Input(char* text, int textSize, int textAlign, int maxLength, bool intOnly, int x, int y, int w, int h, SDL_Color colorOff, SDL_Color colorOn, int borderSize, SDL_Color borderColor, SDL_Color writeColor);
     ~Input();
 
     void draw(SDL_Renderer *renderer);
     void giveInput(int input);
     void setX(int x);
     void setY(int y);
+    void setShift(bool state);
     char* getValue();
     bool getWrite();
 };

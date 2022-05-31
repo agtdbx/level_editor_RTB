@@ -20,6 +20,8 @@ void Menu::initButton() {
     SDL_Color colorOn = {200, 200, 200, 100};
     SDL_Color black = {0, 0, 0, 255};
     SDL_Color blue = {0, 0, 255, 100};
+    SDL_Color writeColor = {100, 100, 255, 100};
+
 
     //Menu principal
     this->butCreer   = Button("Creer"  , 40, 1, this->winW/2 - 100, this->winH/2 - 150, 200, 50, colorOff, colorOn, 2, black);
@@ -28,7 +30,10 @@ void Menu::initButton() {
     this->butQuitter = Button("Quitter", 40, 1, this->winW/2 - 100, this->winH/2 + 150, 200, 50, colorOff, colorOn, 2, black);
 
     //Création d'une nouvelle map
-    this->inputNewName = Input("Nom de la map", 40, 1, this->winW/2 - 200, this->winH/2 - 100, 400, 50, colorOff, colorOn,2, black);
+    this->inputNewName = Input("Nom de la map", 40, 1,20, false, this->winW/2 - 250, this->winH/2 - 100, 500, 50, colorOff, colorOn,2, black, writeColor);
+    this->inputNewW = Input("Largeur", 40, 1,4, true, this->winW/2 - 175, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
+    this->inputNewH = Input("Hauteur", 40, 1,4, true, this->winW/2 + 25, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
+    this->butValiderCreer = Button("Valier", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
     this->butRetourCreer = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 
     // Chargement
@@ -66,17 +71,26 @@ void Menu::input() {
                         this->run = false;
                     }
                 }
-                if ((event.key.keysym.sym >= 48 && event.key.keysym.sym <= 57) || (event.key.keysym.sym >= 97 && event.key.keysym.sym <= 122) || event.key.keysym.sym == 8 || event.key.keysym.sym == 32){
-                    if (fenetre == 3){
-                        if (this->inputNewName.getWrite()){
-                            this->inputNewName.giveInput(event.key.keysym.sym);
-                        }
+                if (event.key.keysym.sym == SDLK_LSHIFT){
+                    this->inputNewName.setShift(true);
+                }
+                if (fenetre == 1){
+                    if (this->inputNewName.getWrite()){
+                        this->inputNewName.giveInput(event.key.keysym.sym);
+                    }
+                    else if (this->inputNewW.getWrite()){
+                        this->inputNewW.giveInput(event.key.keysym.sym);
+                    }
+                    else if (this->inputNewH.getWrite()){
+                        this->inputNewH.giveInput(event.key.keysym.sym);
                     }
                 }
+                break;
 
-                char c = event.key.keysym.sym;
-                std::cout << "Autre : " << event.key.keysym.sym << " -> " << c << std::endl;
-
+            case SDL_KEYUP:
+                if (event.key.keysym.sym == SDLK_LSHIFT){
+                    this->inputNewName.setShift(false);
+                }
                 break;
         }
     }
@@ -101,7 +115,10 @@ void Menu::tick() {
             break;
 
         case 1:
-            if (this->butRetourCreer.clicOnButton()){
+            if (this->butValiderCreer.clicOnButton()){
+//                this->fenetre = 0;
+            }
+            else if (this->butRetourCreer.clicOnButton()){
                 this->fenetre = 0;
             }
             break;
@@ -152,6 +169,10 @@ void Menu::render() {
         case 1:
             drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
 
+            this->inputNewName.draw(this->renderer);
+            this->inputNewW.draw(this->renderer);
+            this->inputNewH.draw(this->renderer);
+            this->butValiderCreer.draw(this->renderer);
             this->butRetourCreer.draw(this->renderer);
             break;
 
@@ -184,7 +205,6 @@ void Menu::render() {
         case 3:
             drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
 
-            this->inputNewName.draw(this->renderer);
             this->butRetourCharger.draw(this->renderer);
             break;
     }

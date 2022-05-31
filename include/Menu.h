@@ -19,6 +19,7 @@ private:
     float lastClic, lastTime;
     bool run, continuer;
     Button butCreer, butCharger, butOptions, butQuitter,
+            butValiderCreer,
             butRetourCreer,
             butRetourCharger,
             butGraphics,
@@ -34,12 +35,9 @@ private:
     void render();
     void drawBaseOptions();
     void drawGraphicOptions();
-    void drawSoundsOptions();
-    void drawKeyboardOptions();
     void drawCredit();
     void setScreenSize();
     void setScreenMode();
-    char * drawKeyBind(int key);
     void saveOptions();
     void loadOptions();
 
@@ -48,12 +46,6 @@ public:
     ~Menu();
 
     bool start();
-    int getNumLevel();
-    int getVolumeSon();
-    int getVolumeMusique();
-    int getToucheGauche();
-    int getToucheDroite();
-    int getToucheSaut();
     int getWinWidth();
     int getWinHeight();
 };

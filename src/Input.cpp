@@ -66,10 +66,12 @@ Input::Input() {
 }
 
 
-Input::Input(char *text, int textSize, int textAlign, int x, int y, int w, int h, SDL_Color colorOff, SDL_Color colorOn, int borderSize, SDL_Color borderColor) {
+Input::Input(char *text, int textSize, int textAlign, int maxLength, bool intOnly, int x, int y, int w, int h, SDL_Color colorOff, SDL_Color colorOn, int borderSize, SDL_Color borderColor, SDL_Color writeColor) {
     this->text = text;
     this->textSize = textSize;
     this->textAlign = textAlign;
+    this->maxLength = maxLength;
+    this->intOnly = intOnly;
     this->x = x;
     this->y = y;
     this->w = w;
@@ -79,7 +81,9 @@ Input::Input(char *text, int textSize, int textAlign, int x, int y, int w, int h
     this->colorOn = colorOn;
     this->borderSize = borderSize;
     this->borderColor = borderColor;
+    this->writeColor = writeColor;
     this->write = false;
+    this->shift = false;
 }
 
 
@@ -124,17 +128,44 @@ void Input::draw(SDL_Renderer *renderer) {
 
 
 void Input::giveInput(int input) {
-    if (input == 8){
+    if (input == 127){
+        this->value = "";
+    }
+    else if (input == 8){
         if (this->value != ""){
             this->value.pop_back();
         }
     }
-    else if (input == 32){
-        this->value.push_back(' ');
-    }
-    else {
-        char c = input;
-        this->value.push_back(c);
+    else if(this->value.length() < maxLength){
+        if (input == 32 && !this->intOnly){
+            this->value.push_back(' ');
+        }
+        else if (input >= 48 && input <= 57){
+            char c = input;
+            if (!this->shift && !this->intOnly){
+                if (input == 49){
+                    c = '&';
+                }
+                else if (input == 54){
+                    c = '-';
+                }
+                else if (input == 56){
+                    c = '_';
+                }
+                else{
+                    return;
+                }
+
+            }
+            this->value.push_back(c);
+        }
+        else if (input >= 97 && input <= 122 && !this->intOnly){
+            char c = input;
+            if (this->shift){
+                c = toupper(c);
+            }
+            this->value.push_back(c);
+        }
     }
 }
 
@@ -145,6 +176,10 @@ void Input::setX(int x) {
 
 void Input::setY(int y) {
     this->y = y;
+}
+
+void Input::setShift(bool state) {
+    this->shift = state;
 }
 
 char *Input::getValue() {
