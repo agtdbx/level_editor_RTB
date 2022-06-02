@@ -9,7 +9,10 @@
 #include <ostream>
 #include <fstream>
 #include <sstream>
-
+#include <jsoncpp/json/json.h>
+#include <jsoncpp/json/value.h>
+#include <jsoncpp/json/writer.h>
+#include <jsoncpp/json/reader.h>
 //Private methods
 void Editor::initButton() {
     SDL_Color colorOff = {255, 255, 255, 100};
@@ -107,6 +110,11 @@ void Editor::render() {
 }
 
 
+void Editor::saveMap() {
+
+}
+
+
 //Public methods
 Editor::Editor(SDL_Renderer *renderer, int winW, int winH) {
     this->winW = winW;
@@ -124,7 +132,58 @@ Editor::Editor(SDL_Renderer *renderer, int winW, int winH) {
 
 
 Editor::~Editor() {
+    Json::Value json;
+    // Sauvegarde des options
+    std::ofstream myfile;
+    std::string file = "../data/levels/";
+    file.append(this->filename);
+    file.append(".json");
+    myfile.open(file, std::fstream::out); // Ouverture du fichier
 
+    json["name"] = this->mapname;
+    json["filename"] = this->filename;
+    json["width"] = this->map.getWidth();
+    json["heigth"] = this->map.getHeigth();
+    json["square_size"] = this->map.getSquarreSize();
+
+    Json::Value checks;
+    std::vector<Checkpoint> checkpoints = this->map.getCheckpoint();
+    for (int i = 0; i < checkpoints.size(); i++){
+        Checkpoint checkpoint = checkpoints[i];
+        Json::Value check;
+        check["x"] = checkpoint.getX();
+        check["y"] = checkpoint.getY();
+        check["id"] = checkpoint.getId();
+        checks.append(check);
+    }
+    json["checkpoints"] = checks;
+
+    Json::Value map;
+    for (int x = 0; x < this->map.getWidth(); x++){
+        for (int y = 0; y < this->map.getHeigth(); y++){
+            Json::Value tuile;
+            Tuile t = this->map.get(x, y);
+
+            tuile["x"] = x;
+            tuile["y"] = y;
+            tuile["type"] = t.getType();
+
+            SDL_Color color = t.getColor();
+            tuile["r"] = color.r;
+            tuile["g"] = color.g;
+            tuile["b"] = color.b;
+            tuile["a"] = color.a;
+
+            map.append(tuile);
+        }
+    }
+
+    json["map"] = map;
+
+    Json::StyledWriter writer;
+    myfile << writer.write(json);
+
+    myfile.close();
 }
 
 
@@ -140,6 +199,8 @@ void Editor::start() {
     }
     float wait = (float)SDL_GetTicks()/1000.0f;
     while ((float)SDL_GetTicks()/1000.0f - wait < 0.2){}
+
+    saveMap();
 }
 
 void Editor::setVariables(int winWidth, int winHeight, Map map, char* mapname, char* filename) {

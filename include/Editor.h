@@ -26,6 +26,7 @@ private:
     void input();
     void tick();
     void render();
+    void saveMap();
 
 public:
     Editor(SDL_Renderer *renderer, int winW, int winH);

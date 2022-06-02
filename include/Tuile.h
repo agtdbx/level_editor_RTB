@@ -22,6 +22,9 @@ public:
     void draw(SDL_Renderer *renderer, Camera camera);
     bool isPassable();
     int touch();
+
+    std::string getType();
+    SDL_Color getColor();
 };
 
 

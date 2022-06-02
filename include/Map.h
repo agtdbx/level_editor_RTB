@@ -36,6 +36,9 @@ public:
     int getStartY();
     int getEndX();
     int getEndY();
+    int getWidth();
+    int getHeigth();
+    std::vector<Checkpoint> getCheckpoint();
     Checkpoint testCheckpoint(float x, float y, int w, int h);
 };
 

@@ -72,3 +72,16 @@ void drawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32
         }
     }
 }
+
+
+char *append_char ( const char *s, const char c )
+{
+    std::size_t len = strlen ( s );
+    char *ret = new char[len + 2];
+
+    strcpy ( ret, s );
+    ret[len] = c;
+    ret[len + 1] = '\0';
+
+    return ret;
+}

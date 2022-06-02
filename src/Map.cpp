@@ -186,3 +186,15 @@ Checkpoint Map::testCheckpoint(float x, float y, int w, int h) {
 
     return rep;
 }
+
+int Map::getWidth() {
+    return this->w;
+}
+
+int Map::getHeigth() {
+    return this->h;
+}
+
+std::vector<Checkpoint> Map::getCheckpoint() {
+    return this->checkpoints;
+}

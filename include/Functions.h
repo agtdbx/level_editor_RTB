@@ -11,4 +11,6 @@ void drawText(SDL_Renderer *renderer , char *text, int textSize, int x, int y, i
 
 void drawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius);
 
+char *append_char ( const char *s, const char c );
+
 #endif //RTB_FUNCTIONS_H

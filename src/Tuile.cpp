@@ -70,3 +70,13 @@ int Tuile::touch() {
     }
     return -1;
 }
+
+
+std::string Tuile::getType() {
+    return this->type;
+}
+
+
+SDL_Color Tuile::getColor() {
+    return this->color;
+}

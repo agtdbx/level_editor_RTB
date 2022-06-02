@@ -13,8 +13,8 @@
 #include <jsoncpp/json/writer.h>
 #include <jsoncpp/json/reader.h>
 
-//Private methods
 
+//Private methods
 void Menu::initButton() {
     SDL_Color colorOff = {255, 255, 255, 0};
     SDL_Color colorOn = {200, 200, 200, 100};
@@ -129,7 +129,17 @@ void Menu::tick() {
                     }
                     this->map = Map(w, h);
                     this->mapname = this->inputNewName.getValue();
-                    this->filename = this->inputNewName.getValue();
+
+                    this->filename = "";
+                    for (int i = 0; i < strlen(this->mapname); i++){
+                        char c = this->mapname[i];
+                        if (c == ' ' || c == '-'){
+                            this->filename = append_char(this->filename, '_');
+                        }
+                        else if (c != '&'){
+                            this->filename = append_char(this->filename, c);
+                        }
+                    }
 
                     this->fenetre = 0;
                     this->run = false;
@@ -457,6 +467,7 @@ char *Menu::getMapname() {
     return this->mapname;
 }
 
-char *Menu::getFilename() {
+char *Menu::getFilename()
+{
     return this->filename;
 }
