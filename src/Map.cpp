@@ -88,6 +88,8 @@ void Map::initEmptyMap() {
     SDL_Color black = {0, 0, 0, 255};
     SDL_Color white = {255, 255, 255, 255};
 
+    this->map.empty();
+
     for (int i = 0; i < this->w; ++i){
         std::vector<Tuile> vector;
         for (int j = 0; j < this->h; ++j){
@@ -118,14 +120,14 @@ Map::Map() {
     initEmptyMap();
 }
 
-Map::Map(int w, int h) {
+Map::Map(int w, int h, int squareSize) {
     this->w = w;
     this->h = h;
     this->startX = 100;
     this->startY = 100;
     this->endX = 200;
     this->endY = 200;
-    this->squareSize = 20;
+    this->squareSize = squareSize;
 
     initEmptyMap();
 }
@@ -197,4 +199,12 @@ int Map::getHeigth() {
 
 std::vector<Checkpoint> Map::getCheckpoint() {
     return this->checkpoints;
+}
+
+void Map::set(int x, int y, Tuile t) {
+    this->map[x][y] = t;
+}
+
+void Map::addCheckpoint(Checkpoint checkpoint) {
+    this->checkpoints.push_back(checkpoint);
 }

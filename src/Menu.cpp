@@ -12,6 +12,7 @@
 #include <jsoncpp/json/value.h>
 #include <jsoncpp/json/writer.h>
 #include <jsoncpp/json/reader.h>
+#include <dirent.h>
 
 
 //Private methods
@@ -37,6 +38,8 @@ void Menu::initButton() {
     this->butRetourCreer = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 
     // Chargement
+    this->inputLoadName = Input("Nom du fichier", 40, 1,20, false, this->winW/2 - 250, this->winH/2 - 100, 500, 50, colorOff, colorOn,2, black, writeColor);
+    this->butValiderCharger = Button("Valider", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
     this->butRetourCharger = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 
     //Options
@@ -73,6 +76,7 @@ void Menu::input() {
                 }
                 if (event.key.keysym.sym == SDLK_LSHIFT){
                     this->inputNewName.setShift(true);
+                    this->inputLoadName.setShift(true);
                 }
                 if (fenetre == 1){
                     if (this->inputNewName.getWrite()){
@@ -85,11 +89,17 @@ void Menu::input() {
                         this->inputNewH.giveInput(event.key.keysym.sym);
                     }
                 }
+                if (fenetre == 3){
+                    if (this->inputLoadName.getWrite()){
+                        this->inputLoadName.giveInput(event.key.keysym.sym);
+                    }
+                }
                 break;
 
             case SDL_KEYUP:
                 if (event.key.keysym.sym == SDLK_LSHIFT){
                     this->inputNewName.setShift(false);
+                    this->inputLoadName.setShift(false);
                 }
                 break;
         }
@@ -127,17 +137,17 @@ void Menu::tick() {
                     if (h <= 9){
                         h = 9;
                     }
-                    this->map = Map(w, h);
+                    this->map = Map(w, h, 20);
                     this->mapname = this->inputNewName.getValue();
 
                     this->filename = "";
-                    for (int i = 0; i < strlen(this->mapname); i++){
+                    for (int i = 0; i < this->mapname.size(); i++){
                         char c = this->mapname[i];
                         if (c == ' ' || c == '-'){
-                            this->filename = append_char(this->filename, '_');
+                            this->filename.push_back('_');
                         }
                         else if (c != '&'){
-                            this->filename = append_char(this->filename, c);
+                            this->filename.push_back(c);
                         }
                     }
 
@@ -170,7 +180,17 @@ void Menu::tick() {
             break;
 
         case 3:
-            if (this->butRetourCharger.clicOnButton()){
+            if (this->butValiderCharger.clicOnButton()){
+                if (!this->inputLoadName.isEmpty()){
+                    this->filename = this->inputLoadName.getValue();
+                    if (loadMap()){
+                        this->fenetre = 0;
+                        this->run = false;
+                        this->continuer = true;
+                    }
+                }
+            }
+            else if (this->butRetourCharger.clicOnButton()){
                 this->fenetre = 0;
             }
             break;
@@ -233,6 +253,8 @@ void Menu::render() {
         case 3:
             drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
 
+            this->inputLoadName.draw(this->renderer);
+            this->butValiderCharger.draw(this->renderer);
             this->butRetourCharger.draw(this->renderer);
             break;
     }
@@ -402,6 +424,93 @@ void Menu::loadOptions() {
 }
 
 
+bool Menu::loadMap() {
+    std::string file = "";
+    file.append(this->filename);
+    file.append(".json");
+
+    bool test = false;
+    DIR *d;
+    struct dirent *dir;
+    d = opendir("../data/levels/");
+    if (d){
+        while ((dir = readdir(d)) != NULL){
+            std::string file_name = dir->d_name;
+            if (file_name != "." && file_name != ".."){
+                if (file_name == file){
+                    test = true;
+                }
+            }
+        }
+        closedir(d);
+    }
+
+    if (test){
+        Json::Value json;
+
+        std::string filepath = "../data/levels/";
+        filepath.append(file);
+
+        std::ifstream myfile(filepath);
+
+        myfile >> json; // Récupération du fichier
+        std::string fname = json["filename"].asString();
+        std::string mname = json["name"].asString();
+        this->filename = json["filename"].asString();
+        this->mapname = json["name"].asString();
+
+        // Vérifier ques les noms soit les bons, et pourquoi l'affichage bug
+
+        int w = json["width"].asInt();
+        int h = json["heigth"].asInt();
+        int size = json["square_size"].asInt();
+        this->map = Map(w, h, size);
+
+        Json::Value checkpoints = json["checkpoints"];
+        if (checkpoints.isArray()){
+            for (int i = 0; i < checkpoints.size(); i++){
+                Json::Value check = checkpoints[i];
+
+                int x = check["x"].asInt();
+                int y = check["y"].asInt();
+                int id = check["id"].asInt();
+
+                Checkpoint checkpoint = Checkpoint(x, y, id);
+                this->map.addCheckpoint(checkpoint);
+            }
+        }
+
+        Json::Value tuiles = json["map"];
+        for (int i = 0; i < tuiles.size(); i++){
+            Json::Value t = tuiles[i];
+
+            int x = t["x"].asInt();
+            int y = t["y"].asInt();
+            std::string type = t["type"].asString();
+
+            SDL_Color color;
+            color.r = t["r"].asInt();
+            color.g = t["g"].asInt();
+            color.b = t["b"].asInt();
+            color.a = t["a"].asInt();
+
+            int r = color.r;
+            int g = color.g;
+            int b = color.b;
+            int a = color.a;
+
+//            Tuile tuile = Tuile(x, y, size, const_cast<char*>(type.c_str()), color);
+            Tuile test = Tuile(x, y, size, "mur", color);
+            this->map.set(x, y, test);
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+
 //Public methods
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer, int winW, int winH) {
     this->winW = winW;
@@ -446,6 +555,7 @@ bool Menu::start() {
         }
     }
     this->saveOptions();
+
     return this->continuer;
 }
 
@@ -463,11 +573,11 @@ Map Menu::getMap() {
     return this->map;
 }
 
-char *Menu::getMapname() {
+std::string Menu::getMapname() {
     return this->mapname;
 }
 
-char *Menu::getFilename()
+std::string Menu::getFilename()
 {
     return this->filename;
 }

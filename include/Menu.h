@@ -6,6 +6,9 @@
 #define RTB_MENU_H
 
 #include <SDL.h>
+#include <iostream>
+#include <vector>
+
 #include "../include/Button.h"
 #include "../include/Select.h"
 #include "../include/Switch.h"
@@ -19,18 +22,16 @@ private:
     int winW, winH, fenetre, spacingWithScreen, borderSize;
     float lastClic, lastTime;
     bool run, continuer;
-    char* mapname;
-    char* filename;
+    std::string mapname, filename;
     Button butCreer, butCharger, butOptions, butQuitter,
-            butValiderCreer,
-            butRetourCreer,
-            butRetourCharger,
+            butValiderCreer, butRetourCreer,
+            butValiderCharger, butRetourCharger,
             butGraphics,
             butCredit,
             butRetourOptions;
     Select butChoixRes;
     Switch fullScreen;
-    Input inputNewName, inputNewW, inputNewH;
+    Input inputNewName, inputNewW, inputNewH, inputLoadName;
     Map map;
 
     void initButton();
@@ -44,6 +45,7 @@ private:
     void setScreenMode();
     void saveOptions();
     void loadOptions();
+    bool loadMap();
 
 public:
     Menu(SDL_Window *window, SDL_Renderer *renderer, int winW, int winH);
@@ -53,8 +55,8 @@ public:
     int getWinWidth();
     int getWinHeight();
     Map getMap();
-    char* getMapname();
-    char* getFilename();
+    std::string getMapname();
+    std::string getFilename();
 };
 
 

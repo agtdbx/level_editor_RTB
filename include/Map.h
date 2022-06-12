@@ -25,7 +25,7 @@ private:
 
 public:
     Map();
-    Map(int w, int h);
+    Map(int w, int h, int squareSize);
     ~Map();
 
     void draw(SDL_Renderer *renderer, Camera camera, int winW, int winH);
@@ -40,6 +40,8 @@ public:
     int getHeigth();
     std::vector<Checkpoint> getCheckpoint();
     Checkpoint testCheckpoint(float x, float y, int w, int h);
+    void set(int x, int y, Tuile t);
+    void addCheckpoint(Checkpoint checkpoint);
 };
 
 

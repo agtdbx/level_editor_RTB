@@ -4,6 +4,7 @@
 
 #include "../include/Button.h"
 
+#include <iostream>
 #include <SDL.h>
 #include "../include/Functions.h"
 

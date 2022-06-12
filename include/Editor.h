@@ -17,8 +17,7 @@ private:
     bool run;
     Button butContinuer, butQuitter, butRetourMenu;
     float lastTime;
-    char* mapname;
-    char* filename;
+    std::string mapname, filename;
     Map map;
     Camera camera;
 
@@ -33,7 +32,7 @@ public:
     ~Editor();
 
     void start();
-    void setVariables(int winWidth, int winHeight, Map map, char* name, char* filename);
+    void setVariables(int winWidth, int winHeight, Map map, std::string name, std::string filename);
 };
 
 

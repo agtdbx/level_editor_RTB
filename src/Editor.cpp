@@ -111,27 +111,6 @@ void Editor::render() {
 
 
 void Editor::saveMap() {
-
-}
-
-
-//Public methods
-Editor::Editor(SDL_Renderer *renderer, int winW, int winH) {
-    this->winW = winW;
-    this->winH = winH;
-    this->renderer = renderer;
-    this->run = true;
-    this->fenetre = 0;
-    this->lastTime = ((float)SDL_GetTicks()/1000.0f);
-    this->camera = Camera();
-    this->mapname = "";
-    this->filename = "";
-
-    this->initButton();
-}
-
-
-Editor::~Editor() {
     Json::Value json;
     // Sauvegarde des options
     std::ofstream myfile;
@@ -187,9 +166,33 @@ Editor::~Editor() {
 }
 
 
+//Public methods
+Editor::Editor(SDL_Renderer *renderer, int winW, int winH) {
+    this->winW = winW;
+    this->winH = winH;
+    this->renderer = renderer;
+    this->run = true;
+    this->fenetre = 0;
+    this->lastTime = ((float)SDL_GetTicks()/1000.0f);
+    this->camera = Camera();
+    this->mapname = "";
+    this->filename = "";
+
+    this->initButton();
+}
+
+
+Editor::~Editor() {
+
+}
+
+
 void Editor::start() {
     this->run = true;
     this->fenetre = 0;
+
+    this->camera.setPos(0.0f, 0.0f);
+
     while(this->run){
         if (((float)SDL_GetTicks()/1000) - this->lastTime >= 1.0f/30.0f){
             this->input();
@@ -203,7 +206,7 @@ void Editor::start() {
     saveMap();
 }
 
-void Editor::setVariables(int winWidth, int winHeight, Map map, char* mapname, char* filename) {
+void Editor::setVariables(int winWidth, int winHeight, Map map, std::string mapname, std::string filename) {
     this->winW = winWidth;
     this->winH = winHeight;
     this->map = map;
