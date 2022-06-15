@@ -499,9 +499,8 @@ bool Menu::loadMap() {
             int b = color.b;
             int a = color.a;
 
-//            Tuile tuile = Tuile(x, y, size, const_cast<char*>(type.c_str()), color);
-            Tuile test = Tuile(x, y, size, "mur", color);
-            this->map.set(x, y, test);
+            Tuile tuile = Tuile(x * size, y * size, size, const_cast<char*>(type.c_str()), color);
+            this->map.set(x, y, tuile);
         }
 
         return true;
