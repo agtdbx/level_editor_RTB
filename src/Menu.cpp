@@ -367,10 +367,22 @@ void Menu::setScreenSize() {
     this->butQuitter.setY(this->winH/2 + 150);
 
     //Création d'une nouvelle map
+    this->inputNewName.setX(this->winW/2 - 250);
+    this->inputNewName.setY(this->winH/2 - 100);
+    this->inputNewW.setX(this->winW/2 - 175);
+    this->inputNewW.setY(this->winH/2);
+    this->inputNewH.setX(this->winW/2 + 25);
+    this->inputNewH.setY(this->winH/2);
+    this->butValiderCreer.setX(this->winW/2 -100);
+    this->butValiderCreer.setY(this->winH/2 + 100);
     this->butRetourCreer.setX(this->winW/2 - 100);
     this->butRetourCreer.setY(this->winH-50 - 100);
 
     // Chargement
+    this->inputLoadName.setX(this->winW/2 - 250);
+    this->inputLoadName.setY(this->winH/2 - 100);
+    this->butValiderCharger.setX(this->winW/2 - 100);
+    this->butValiderCharger.setY(this->winH/2 + 100);
     this->butRetourCharger.setX(this->winW/2 - 100);
     this->butRetourCharger.setY(this->winH-50 - 100);
 

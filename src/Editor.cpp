@@ -68,6 +68,33 @@ void Editor::tick() {
             this->camera.addPosX(cameraSpeed);
         }
 
+        int x, y;
+        Uint32 buttons;
+
+        SDL_PumpEvents();  // make sure we have the latest mouse state.
+
+        buttons = SDL_GetMouseState(&x, &y);
+
+        if (buttons){
+            int tx = (x + this->camera.getX())/20;
+            int ty = (y + this->camera.getY())/20;
+
+            if (tx > 0 && tx < this->map.getWidth()-1 && ty > 0 && ty < this->map.getHeigth()-1){
+                if ((buttons & SDL_BUTTON_LMASK) != 0){
+//                    std::cout << "MOUSE POS : " << tx << ", " << ty << " CLIC LEFT" << std::endl;
+                    SDL_Color black = {0, 0, 0, 255};
+                    Tuile t = Tuile(tx*20, ty*20, 20, "mur", black);
+                    this->map.set(tx, ty, t);
+                }
+                if ((buttons & SDL_BUTTON_RMASK) != 0){
+//                    std::cout << "MOUSE POS : " << tx << ", " << ty << " CLIC RIGHT" << std::endl;
+                    SDL_Color white = {255, 255, 255, 255};
+                    Tuile t = Tuile(tx*20, ty*20, 20, "air", white);
+                    this->map.set(tx, ty, t);
+                }
+            }
+        }
+
 
     }
     else if (this->fenetre == 1) {
