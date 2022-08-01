@@ -139,9 +139,11 @@ Map::~Map() {
 
 
 void Map::draw(SDL_Renderer *renderer, Camera camera, int winW, int winH) {
+    int minX = 280;
+    int minY = -20;
     for (int i = 0; i < this->w; ++i) {
         for (int j = 0; j < this->h; ++j) {
-            if (-20 <= i*20 - camera.getX() && i*20 - camera.getX() <= winW && -20 <= j*20 - camera.getY() && j*20 - camera.getY() <= winH){
+            if (minX <= i*20 - camera.getX() && i*20 - camera.getX() <= winW && minY <= j*20 - camera.getY() && j*20 - camera.getY() <= winH){
                 this->map[i][j].draw(renderer, camera);
             }
         }

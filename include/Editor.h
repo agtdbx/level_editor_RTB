@@ -9,6 +9,7 @@
 #include "../include/Button.h"
 #include "../include/Map.h"
 #include "../include/Camera.h"
+#include "../include/EditorBar.h"
 
 class Editor {
 private:
@@ -20,12 +21,14 @@ private:
     std::string mapname, filename;
     Map map;
     Camera camera;
+    EditorBar editorBar;
 
     void initButton();
     void input();
     void tick();
     void render();
     void saveMap();
+    void mouseClic();
 
 public:
     Editor(SDL_Renderer *renderer, int winW, int winH);

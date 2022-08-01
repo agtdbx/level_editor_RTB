@@ -67,35 +67,8 @@ void Editor::tick() {
         if (keyboard[SDL_SCANCODE_RIGHT]) {
             this->camera.addPosX(cameraSpeed);
         }
-
-        int x, y;
-        Uint32 buttons;
-
-        SDL_PumpEvents();  // make sure we have the latest mouse state.
-
-        buttons = SDL_GetMouseState(&x, &y);
-
-        if (buttons){
-            int tx = (x + this->camera.getX())/20;
-            int ty = (y + this->camera.getY())/20;
-
-            if (tx > 0 && tx < this->map.getWidth()-1 && ty > 0 && ty < this->map.getHeigth()-1){
-                if ((buttons & SDL_BUTTON_LMASK) != 0){
-//                    std::cout << "MOUSE POS : " << tx << ", " << ty << " CLIC LEFT" << std::endl;
-                    SDL_Color black = {0, 0, 0, 255};
-                    Tuile t = Tuile(tx*20, ty*20, 20, "mur", black);
-                    this->map.set(tx, ty, t);
-                }
-                if ((buttons & SDL_BUTTON_RMASK) != 0){
-//                    std::cout << "MOUSE POS : " << tx << ", " << ty << " CLIC RIGHT" << std::endl;
-                    SDL_Color white = {255, 255, 255, 255};
-                    Tuile t = Tuile(tx*20, ty*20, 20, "air", white);
-                    this->map.set(tx, ty, t);
-                }
-            }
-        }
-
-
+        this->editorBar.tick();
+        this->mouseClic();
     }
     else if (this->fenetre == 1) {
         if (this->butContinuer.clicOnButton()){
@@ -119,6 +92,7 @@ void Editor::render() {
     SDL_RenderClear(this->renderer);
 
     this->map.draw(this->renderer, this->camera, this->winW, this->winH);
+    this->editorBar.draw(this->renderer);
 
     switch (this->fenetre) {
         case 0:
@@ -193,6 +167,63 @@ void Editor::saveMap() {
 }
 
 
+void Editor::mouseClic() {
+    int x, y;
+    Uint32 buttons;
+
+    SDL_PumpEvents();  // make sure we have the latest mouse state.
+
+    buttons = SDL_GetMouseState(&x, &y);
+
+    if (buttons){
+        if (x >= 300){
+            int tx = (x + this->camera.getX())/20;
+            int ty = (y + this->camera.getY())/20;
+
+            if (tx > 0 && tx < this->map.getWidth()-1 && ty > 0 && ty < this->map.getHeigth()-1){
+                if ((buttons & SDL_BUTTON_LMASK) != 0){
+                    if (this->editorBar.getFen() == 0){
+                        SDL_Color color = {0, 0, 0, 255};
+                        std::string type = "mur";
+
+                        switch (this->editorBar.getChoice()) {
+                            case 0:
+                                color = {0, 0, 0, 255};
+                                type = "mur";
+                                break;
+
+                            case 1:
+                                color = {255, 255, 255, 255};
+                                type = "air";
+                                break;
+
+                            case 2:
+                                color = {0, 255, 0, 255};
+                                type = "slime";
+                                break;
+
+                            case 3:
+                                color = {0, 255, 255, 255};
+                                type = "glace";
+                                break;
+
+                            case 4:
+                                color = {100, 100, 100, 255};
+                                type = "pique";
+                                break;
+                        }
+                        Tuile t = Tuile(tx*20, ty*20, 20, type, color);
+                        this->map.set(tx, ty, t);
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+
+
 //Public methods
 Editor::Editor(SDL_Renderer *renderer, int winW, int winH) {
     this->winW = winW;
@@ -204,6 +235,7 @@ Editor::Editor(SDL_Renderer *renderer, int winW, int winH) {
     this->camera = Camera();
     this->mapname = "";
     this->filename = "";
+    this->editorBar = EditorBar(winW, winH);
 
     this->initButton();
 }
@@ -218,7 +250,7 @@ void Editor::start() {
     this->run = true;
     this->fenetre = 0;
 
-    this->camera.setPos(0.0f, 0.0f);
+    this->camera.setPos(-300.0f, 0.0f);
 
     while(this->run){
         if (((float)SDL_GetTicks()/1000) - this->lastTime >= 1.0f/30.0f){
