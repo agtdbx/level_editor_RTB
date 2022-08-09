@@ -18,8 +18,9 @@ void Editor::initButton() {
     SDL_Color colorOff = {255, 255, 255, 100};
     SDL_Color colorOn = {200, 200, 200, 150};
     SDL_Color black = {0, 0, 0, 255};
-    this->butContinuer = Button("Continuer", 40, 1, this->winW/2 - 100, this->winH/2 - 75, 200, 50, colorOff, colorOn,2, black);
-    this->butQuitter = Button("Quitter", 40, 1, this->winW/2 - 100, this->winH/2 + 25, 200, 50, colorOff, colorOn,2, black);
+    this->butContinuer = Button("Retour", 40, 1, this->winW/2 - 100, this->winH/2 - 75, 200, 50, colorOff, colorOn,2, black);
+    this->butQuitAndSave = Button("Quitter et sauvegarder", 40, 1, this->winW/2 - 225, this->winH/2 + 25, 450, 50, colorOff, colorOn,2, black);
+    this->butQuitNoSave = Button("Quitter sans sauvegarder", 40, 1, this->winW/2 - 250, this->winH/2 + 125, 500, 50, colorOff, colorOn,2, black);
     this->butRetourMenu = Button("Retour au menu", 40, 1, this->winW/2 - 150, this->winH/2 - 75, 300, 50, colorOff, colorOn,2, black);
 }
 
@@ -74,13 +75,12 @@ void Editor::tick() {
         if (this->butContinuer.clicOnButton()){
             this->fenetre = 0;
         }
-        else if (this->butQuitter.clicOnButton()){
+        else if (this->butQuitAndSave.clicOnButton()){
             this->run = false;
         }
-    }
-    else{
-        if (this->butRetourMenu.clicOnButton()){
+        else if (this->butQuitNoSave.clicOnButton()){
             this->run = false;
+            this->exitWithSave = false;
         }
     }
     this->lastTime = ((float)SDL_GetTicks()/1000.0f);
@@ -98,9 +98,17 @@ void Editor::render() {
         int x = this->mouseTargetX*20 - this->camera.getX();
         int y = this->mouseTargetY*20 - this->camera.getY();
 
-        SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
+        if (this->map.get(this->mouseTargetX, this->mouseTargetY).getType() == "mur"){
+            SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+        }
+        else{
+            SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
+        }
+
         SDL_Rect rect = {x, y, 20, 20};
+        SDL_Rect rect2 = {x+1, y+1, 18, 18};
         SDL_RenderDrawRect(this->renderer, &rect);
+        SDL_RenderDrawRect(this->renderer, &rect2);
     }
 
     switch (this->fenetre) {
@@ -109,11 +117,9 @@ void Editor::render() {
 
         case 1:
             this->butContinuer.draw(this->renderer);
-            this->butQuitter.draw(this->renderer);
+            this->butQuitAndSave.draw(this->renderer);
+            this->butQuitNoSave.draw(this->renderer);
             break;
-
-        case 2:
-            this->butRetourMenu.draw(this->renderer);
     }
 
     SDL_RenderPresent(this->renderer);
@@ -239,7 +245,7 @@ Editor::Editor(SDL_Renderer *renderer, int winW, int winH) {
     this->camera = Camera();
     this->mapname = "";
     this->filename = "";
-    this->editorBar = EditorBar(winW, winH);
+    this->editorBar = EditorBar(winW, winH, this->mapname, 0, 0);
 
     this->initButton();
 }
@@ -253,6 +259,8 @@ Editor::~Editor() {
 void Editor::start() {
     this->run = true;
     this->fenetre = 0;
+
+    this->exitWithSave = true;
 
     this->mouseTarget = false;
     this->mouseTargetX = 0;
@@ -270,7 +278,9 @@ void Editor::start() {
     float wait = (float)SDL_GetTicks()/1000.0f;
     while ((float)SDL_GetTicks()/1000.0f - wait < 0.2){}
 
-    saveMap();
+    if (exitWithSave){
+        saveMap();
+    }
 }
 
 void Editor::setVariables(int winWidth, int winHeight, Map map, std::string mapname, std::string filename) {
@@ -279,9 +289,12 @@ void Editor::setVariables(int winWidth, int winHeight, Map map, std::string mapn
     this->map = map;
     this->mapname = mapname;
     this->filename = filename;
+    this->editorBar = EditorBar(winW, winH, this->mapname, this->map.getWidth(), this->map.getHeigth());
 
     this->butContinuer.setX(this->winW/2 - 100);
     this->butContinuer.setY(this->winH/2 - 75);
-    this->butQuitter.setX(this->winW/2 - 100);
-    this->butQuitter.setY(this->winH/2 + 25);
+    this->butQuitAndSave.setX(this->winW/2 - 225);
+    this->butQuitAndSave.setY(this->winH/2 + 25);
+    this->butQuitNoSave.setX(this->winW/2 - 250);
+    this->butQuitNoSave.setY(this->winH/2 + 125);
 }

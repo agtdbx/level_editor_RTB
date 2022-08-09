@@ -43,13 +43,16 @@ EditorBar::EditorBar() {
 }
 
 
-EditorBar::EditorBar(int winW, int winH) {
+EditorBar::EditorBar(int winW, int winH, std::string mapName,int mapW, int mapH) {
     this->x = 0;
     this->y = 0;
     this->w = 300;
     this->h = winH;
     this->fen = 0;
     this->choice = 0;
+    this->mapName = mapName;
+    this->mapW = mapW;
+    this->mapH = mapH;
 
     this->initButtons();
 }

@@ -15,8 +15,8 @@ class Editor {
 private:
     SDL_Renderer *renderer;
     int winW, winH, fenetre, mouseTargetX, mouseTargetY;
-    bool run, mouseTarget;
-    Button butContinuer, butQuitter, butRetourMenu;
+    bool run, mouseTarget, exitWithSave;
+    Button butContinuer, butQuitAndSave, butQuitNoSave, butRetourMenu;
     float lastTime;
     std::string mapname, filename;
     Map map;
