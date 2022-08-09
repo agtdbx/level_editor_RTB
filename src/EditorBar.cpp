@@ -112,10 +112,15 @@ void EditorBar::draw(SDL_Renderer *renderer) {
 
     if (this->fen == 0){
         this->butTuileMur.draw(renderer);
+        drawText(renderer, "mur", 20, 90, 260, 1, black);
         this->butTuileAir.draw(renderer);
+        drawText(renderer, "air", 20, 210, 260, 1, black);
         this->butTuileSlime.draw(renderer);
+        drawText(renderer, "slime", 20, 90, 380, 1, black);
         this->butTuileGlace.draw(renderer);
+        drawText(renderer, "glace", 20, 210, 380, 1, black);
         this->butTuilePique.draw(renderer);
+        drawText(renderer, "pique", 20, 90, 500, 1, black);
 
         int x = 0;
         int y = 0;

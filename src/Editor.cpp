@@ -94,6 +94,15 @@ void Editor::render() {
     this->map.draw(this->renderer, this->camera, this->winW, this->winH);
     this->editorBar.draw(this->renderer);
 
+    if (this->mouseTarget){
+        int x = this->mouseTargetX*20 - this->camera.getX();
+        int y = this->mouseTargetY*20 - this->camera.getY();
+
+        SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
+        SDL_Rect rect = {x, y, 20, 20};
+        SDL_RenderDrawRect(this->renderer, &rect);
+    }
+
     switch (this->fenetre) {
         case 0:
             break;
@@ -175,50 +184,57 @@ void Editor::mouseClic() {
 
     buttons = SDL_GetMouseState(&x, &y);
 
-    if (buttons){
-        if (x >= 300){
-            int tx = (x + this->camera.getX())/20;
-            int ty = (y + this->camera.getY())/20;
+    if (x >= 300){
+        int tx = (x + this->camera.getX())/20;
+        int ty = (y + this->camera.getY())/20;
 
-            if (tx > 0 && tx < this->map.getWidth()-1 && ty > 0 && ty < this->map.getHeigth()-1){
-                if ((buttons & SDL_BUTTON_LMASK) != 0){
-                    if (this->editorBar.getFen() == 0){
-                        SDL_Color color = {0, 0, 0, 255};
-                        std::string type = "mur";
+        this->mouseTarget = true;
+        this->mouseTargetX = tx;
+        this->mouseTargetY = ty;
 
-                        switch (this->editorBar.getChoice()) {
-                            case 0:
-                                color = {0, 0, 0, 255};
-                                type = "mur";
-                                break;
+        if (tx > 0 && tx < this->map.getWidth()-1 && ty > 0 && ty < this->map.getHeigth()-1){
+            if ((buttons & SDL_BUTTON_LMASK) != 0){
+                if (this->editorBar.getFen() == 0){
+                    SDL_Color color = {0, 0, 0, 255};
+                    std::string type = "mur";
 
-                            case 1:
-                                color = {255, 255, 255, 255};
-                                type = "air";
-                                break;
+                    switch (this->editorBar.getChoice()) {
+                        case 0:
+                            color = {0, 0, 0, 255};
+                            type = "mur";
+                            break;
 
-                            case 2:
-                                color = {0, 255, 0, 255};
-                                type = "slime";
-                                break;
+                        case 1:
+                            color = {255, 255, 255, 255};
+                            type = "air";
+                            break;
 
-                            case 3:
-                                color = {0, 255, 255, 255};
-                                type = "glace";
-                                break;
+                        case 2:
+                            color = {0, 255, 0, 255};
+                            type = "slime";
+                            break;
 
-                            case 4:
-                                color = {100, 100, 100, 255};
-                                type = "pique";
-                                break;
-                        }
-                        Tuile t = Tuile(tx*20, ty*20, 20, type, color);
-                        this->map.set(tx, ty, t);
+                        case 3:
+                            color = {0, 255, 255, 255};
+                            type = "glace";
+                            break;
+
+                        case 4:
+                            color = {100, 100, 100, 255};
+                            type = "pique";
+                            break;
                     }
-
+                    Tuile t = Tuile(tx*20, ty*20, 20, type, color);
+                    this->map.set(tx, ty, t);
                 }
             }
         }
+        else{
+            this->mouseTarget = false;
+        }
+    }
+    else{
+        this->mouseTarget = false;
     }
 }
 
@@ -249,6 +265,10 @@ Editor::~Editor() {
 void Editor::start() {
     this->run = true;
     this->fenetre = 0;
+
+    this->mouseTarget = false;
+    this->mouseTargetX = 0;
+    this->mouseTargetY = 0;
 
     this->camera.setPos(-300.0f, 0.0f);
 

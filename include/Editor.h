@@ -14,8 +14,8 @@
 class Editor {
 private:
     SDL_Renderer *renderer;
-    int winW, winH, fenetre;
-    bool run;
+    int winW, winH, fenetre, mouseTargetX, mouseTargetY;
+    bool run, mouseTarget;
     Button butContinuer, butQuitter, butRetourMenu;
     float lastTime;
     std::string mapname, filename;

@@ -567,6 +567,9 @@ bool Menu::start() {
     }
     this->saveOptions();
 
+    float wait = (float)SDL_GetTicks()/1000.0f;
+    while ((float)SDL_GetTicks()/1000.0f - wait < 0.2){}
+
     return this->continuer;
 }
 
