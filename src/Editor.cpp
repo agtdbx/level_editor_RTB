@@ -157,12 +157,6 @@ void Editor::saveMap() {
             tuile["y"] = y;
             tuile["type"] = t.getType();
 
-            SDL_Color color = t.getColor();
-            tuile["r"] = color.r;
-            tuile["g"] = color.g;
-            tuile["b"] = color.b;
-            tuile["a"] = color.a;
-
             map.append(tuile);
         }
     }
@@ -195,36 +189,30 @@ void Editor::mouseClic() {
         if (tx > 0 && tx < this->map.getWidth()-1 && ty > 0 && ty < this->map.getHeigth()-1){
             if ((buttons & SDL_BUTTON_LMASK) != 0){
                 if (this->editorBar.getFen() == 0){
-                    SDL_Color color = {0, 0, 0, 255};
                     std::string type = "mur";
 
                     switch (this->editorBar.getChoice()) {
                         case 0:
-                            color = {0, 0, 0, 255};
                             type = "mur";
                             break;
 
                         case 1:
-                            color = {255, 255, 255, 255};
                             type = "air";
                             break;
 
                         case 2:
-                            color = {0, 255, 0, 255};
                             type = "slime";
                             break;
 
                         case 3:
-                            color = {0, 255, 255, 255};
                             type = "glace";
                             break;
 
                         case 4:
-                            color = {100, 100, 100, 255};
                             type = "pique";
                             break;
                     }
-                    Tuile t = Tuile(tx*20, ty*20, 20, type, color);
+                    Tuile t = Tuile(tx*20, ty*20, 20, type);
                     this->map.set(tx, ty, t);
                 }
             }

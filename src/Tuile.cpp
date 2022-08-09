@@ -21,12 +21,27 @@ Tuile::Tuile() {
 }
 
 
-Tuile::Tuile(int x, int y, int size, std::string type, SDL_Color color) {
+Tuile::Tuile(int x, int y, int size, std::string type) {
     this->x = x;
     this->y = y;
     this->size = size;
     this->type = type;
-    this->color = color;
+
+    if (this->type == "mur") {
+        this->color = {0, 0, 0, 255};
+    }
+    if (this->type == "air") {
+        this->color = {255, 255, 255, 255};
+    }
+    if (this->type == "slime") {
+        this->color = {0, 255, 0, 255};
+    }
+    if (this->type == "glace") {
+        this->color = {0, 255, 255, 255};
+    }
+    if (this->type == "pique") {
+        this->color = {100, 100, 100, 255};
+    }
 }
 
 

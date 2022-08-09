@@ -11,11 +11,6 @@
 #include "../include/Checkpoint.h"
 #include <SDL_image.h>
 
-struct Pixel{
-    int r, g, b, a;
-};
-typedef struct Pixel Pixel;
-
 class Map {
 private:
     std::vector<Checkpoint> checkpoints;

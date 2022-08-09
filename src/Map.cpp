@@ -14,80 +14,7 @@
 #include <SDL2/SDL_image.h>
 
 //private methods
-//void Map::loadMap(int lvl_num) {
-//    // Lecture du fichier json
-//    Json::Value json;
-//    std::ifstream myfile ("../data/levels/lvl_1.json");// Ouverture du fichier
-//    myfile >> json;
-//
-//    // Assignation des valeurs du json
-//    this->w = json["width"].asInt();
-//    this->h = json["height"].asInt();
-//    this->startX = json["startX"].asInt()*20;
-//    this->startY = json["startY"].asInt()*20;
-//    this->endX = json["endX"].asInt()*20;
-//    this->endY = json["endY"].asInt()*20;
-//    std::string png_map = json["map_file"].asString();
-//    Json::Value special_tiles = json["checkpoints"];
-//
-//    this->checkpoints = std::vector<Checkpoint>();
-//    for (int i = 0; i < special_tiles.size(); i++){
-//        Json::Value special_tile = special_tiles[i];
-//        int x = special_tile["x"].asInt()*20;
-//        int y = special_tile["y"].asInt()*20;
-//        int id = special_tile["id"].asInt();
-//        this->checkpoints.push_back(Checkpoint(x,y,id));
-//    }
-//
-//    // Lecture du fichier png
-//    SDL_Surface* picture = IMG_Load("../data/levels/lvl_1.png");
-//    SDL_Surface* map = SDL_ConvertSurfaceFormat(picture, SDL_PIXELFORMAT_ABGR32, 0);
-//
-//    // Création de la map avec les valeurs du png
-//    this->map.clear();
-//    SDL_Color black = {0, 0, 0, 255};
-//    SDL_Color color = {255, 255, 255, 255};
-//    Pixel pixel;
-//    for (int i = 0; i < this->w; ++i){
-//        std::vector<Tuile> vector;
-//        for (int j = 0; j < this->h; ++j){
-//            this->getpixel(&pixel, map, i, j);
-//            if (pixel.r == 0 && pixel.g == 0 && pixel.b == 0){
-//                Tuile tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "mur", black);
-//                vector.push_back(tuile);
-//            }
-//            else{
-//                color.r = pixel.r;
-//                color.g = pixel.g;
-//                color.b = pixel.b;
-//                color.a = pixel.a;
-//                if (color.r == 0 && color.g == 255 && color.b == 0){
-//                    Tuile tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "slime", color);
-//                    vector.push_back(tuile);
-//                }
-//                else if (color.r == 0 && color.g == 255 && color.b == 255){
-//                    Tuile tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "glace", color);
-//                    vector.push_back(tuile);
-//                }
-//                else if (color.r == 100 && color.g == 100 && color.b == 100){
-//                    Tuile tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "pique", color);
-//                    vector.push_back(tuile);
-//                }
-//                else{
-//                    Tuile tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "air", color);
-//                    vector.push_back(tuile);
-//                }
-//            }
-//        }
-//        this->map.push_back(vector);
-//    }
-//    SDL_FreeSurface(picture);
-//}
-
 void Map::initEmptyMap() {
-    SDL_Color black = {0, 0, 0, 255};
-    SDL_Color white = {255, 255, 255, 255};
-
     this->map.empty();
 
     for (int i = 0; i < this->w; ++i){
@@ -95,10 +22,10 @@ void Map::initEmptyMap() {
         for (int j = 0; j < this->h; ++j){
             Tuile tuile;
             if (i == 0 || i == this->w-1 || j == 0 || j == this->h-1){
-                tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "mur", black);
+                tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "mur");
             }
             else{
-                tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "air", white);
+                tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "air");
             }
             vector.push_back(tuile);
         }

@@ -500,18 +500,7 @@ bool Menu::loadMap() {
             int y = t["y"].asInt();
             std::string type = t["type"].asString();
 
-            SDL_Color color;
-            color.r = t["r"].asInt();
-            color.g = t["g"].asInt();
-            color.b = t["b"].asInt();
-            color.a = t["a"].asInt();
-
-            int r = color.r;
-            int g = color.g;
-            int b = color.b;
-            int a = color.a;
-
-            Tuile tuile = Tuile(x * size, y * size, size, const_cast<char*>(type.c_str()), color);
+            Tuile tuile = Tuile(x * size, y * size, size, const_cast<char*>(type.c_str()));
             this->map.set(x, y, tuile);
         }
 

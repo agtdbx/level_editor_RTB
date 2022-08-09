@@ -16,7 +16,7 @@ protected:
 
 public:
     Tuile();
-    Tuile(int x, int y, int size, std::string type, SDL_Color color);
+    Tuile(int x, int y, int size, std::string type);
     ~Tuile();
 
     void draw(SDL_Renderer *renderer, Camera camera);
