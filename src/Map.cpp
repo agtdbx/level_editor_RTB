@@ -15,7 +15,7 @@
 
 //private methods
 void Map::initEmptyMap() {
-    this->map.empty();
+    this->map.clear();
 
     for (int i = 0; i < this->w; ++i){
         std::vector<Tuile> vector;
@@ -31,6 +31,21 @@ void Map::initEmptyMap() {
         }
         this->map.push_back(vector);
     }
+}
+
+
+std::vector<std::vector<Tuile>> Map::copyMap() {
+    std::vector<std::vector<Tuile>> copyMap;
+
+    for (int x = 0; x < this->map.size(); x++){
+        std::vector<Tuile> vector;
+        for (int y = 0; y < this->map[0].size(); y++){
+            vector.push_back(this->map[x][y]);
+        }
+        copyMap.push_back(vector);
+    }
+
+    return copyMap;
 }
 
 
@@ -82,29 +97,36 @@ Tuile Map::get(int x, int y) {
     return this->map[x][y];
 }
 
+
 bool Map::test(int x, int y) {
     return this->map[x][y].isPassable();
 }
+
 
 int Map::getSquarreSize() {
     return this->squareSize;
 }
 
+
 int Map::getStartX() {
     return this->startX;
 }
+
 
 int Map::getStartY() {
     return this->startY;
 }
 
+
 int Map::getEndX() {
     return this->endX;
 }
 
+
 int Map::getEndY() {
     return this->endY;
 }
+
 
 Checkpoint Map::testCheckpoint(float x, float y, int w, int h) {
     Checkpoint rep = Checkpoint(0, 0, -1);
@@ -118,22 +140,45 @@ Checkpoint Map::testCheckpoint(float x, float y, int w, int h) {
     return rep;
 }
 
+
 int Map::getWidth() {
     return this->w;
 }
+
 
 int Map::getHeigth() {
     return this->h;
 }
 
+
 std::vector<Checkpoint> Map::getCheckpoint() {
     return this->checkpoints;
 }
+
 
 void Map::set(int x, int y, Tuile t) {
     this->map[x][y] = t;
 }
 
+
 void Map::addCheckpoint(Checkpoint checkpoint) {
     this->checkpoints.push_back(checkpoint);
+}
+
+
+void Map::resize(int mapW, int mapH) {
+    std::cout << "RESIZE : " << this->w << "x" << this->h << " en " << mapW << "x" << mapH << std::endl;
+    std::vector<std::vector<Tuile>> copyMap = this->copyMap();
+
+    this->w = mapW;
+    this->h = mapH;
+    this->initEmptyMap();
+
+    for (int x = 1; x < this->map.size()-1; x++){
+        for (int y = 1; y < this->map[0].size()-1; y++){
+            if (x < copyMap.size()-1 && y < copyMap[0].size()-1){
+                this->map[x][y] = copyMap[x][y];
+            }
+        }
+    }
 }

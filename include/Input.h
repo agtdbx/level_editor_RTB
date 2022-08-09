@@ -31,6 +31,7 @@ public:
     void setX(int x);
     void setY(int y);
     void setShift(bool state);
+    void setValue(std::string value);
     char* getValue();
     bool getWrite();
     bool isEmpty();

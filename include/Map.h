@@ -16,7 +16,9 @@ private:
     std::vector<Checkpoint> checkpoints;
     std::vector<std::vector<Tuile>> map;
     int w, h, startX, startY, endX, endY, squareSize;
+
     void initEmptyMap();
+    std::vector<std::vector<Tuile>> copyMap();
 
 public:
     Map();
@@ -37,6 +39,7 @@ public:
     Checkpoint testCheckpoint(float x, float y, int w, int h);
     void set(int x, int y, Tuile t);
     void addCheckpoint(Checkpoint checkpoint);
+    void resize(int mapW, int mapH);
 };
 
 

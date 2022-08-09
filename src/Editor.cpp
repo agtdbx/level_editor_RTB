@@ -43,6 +43,7 @@ void Editor::input() {
                 }
                 break;
         }
+        this->editorBar.input(event);
     }
 }
 
@@ -70,6 +71,10 @@ void Editor::tick() {
         }
         this->editorBar.tick();
         this->mouseClic();
+
+        if (this->map.getWidth() != this->editorBar.getMapW() || this->map.getHeigth() != this->editorBar.getMapH()){
+            this->map.resize(this->editorBar.getMapW(), this->editorBar.getMapH());
+        }
     }
     else if (this->fenetre == 1) {
         if (this->butContinuer.clicOnButton()){
@@ -127,6 +132,21 @@ void Editor::render() {
 
 
 void Editor::saveMap() {
+    if (this->mapname != this->editorBar.getMapname()){
+        this->mapname = this->editorBar.getMapname();
+
+        this->filename = "";
+        for (int i = 0; i < this->mapname.size(); i++){
+            char c = this->mapname[i];
+            if (c == ' ' || c == '-'){
+                this->filename.push_back('_');
+            }
+            else if (c != '&'){
+                this->filename.push_back(c);
+            }
+        }
+    }
+
     Json::Value json;
     // Sauvegarde des options
     std::ofstream myfile;

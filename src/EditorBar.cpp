@@ -17,6 +17,9 @@ void EditorBar::initButtons() {
     SDL_Color glace = {0, 255, 255, 255};
     SDL_Color pique = {100, 100, 100, 255};
 
+    SDL_Color colorOff = {255, 255, 255, 100};
+    SDL_Color colorOn = {200, 200, 200, 200};
+
     // Boutons de la barre de menu
     this->butTuile =        Button("Tuile",     20, 2, 0,   100, 100, 50, transparent, gray, 2, black);
     this->butGraphique =    Button("Graphique", 20, 2, 100, 100, 100, 50, transparent, gray, 2, black);
@@ -28,6 +31,15 @@ void EditorBar::initButtons() {
     this->butTuileSlime = Button(" ", 10, 1, 60, 320, 60, 60, slime, slime, 2, black);
     this->butTuileGlace = Button(" ", 10, 1, 180, 320, 60, 60, glace, glace, 2, black);
     this->butTuilePique = Button(" ", 10, 1, 60, 440, 60, 60, pique, pique, 2, black);
+
+    // Boutons pour l'onglet map
+    this->inputMapname = Input(" ", 20, 1, 20, false, 50, 190, 200, 30, colorOff, colorOn, 2, black, black);
+    this->inputMapname.setValue(this->mapName);
+    this->inputMapW = Input(" ", 20, 1, 3, true, 90, 270, 45, 30, colorOff, colorOn, 2, black, black);
+    this->inputMapW.setValue(std::to_string(this->mapW));
+    this->inputMapH = Input(" ", 20, 1, 3, true, 170, 270, 45, 30, colorOff, colorOn, 2, black, black);
+    this->inputMapH.setValue(std::to_string(this->mapH));
+    this->butValiderInputMap = Button("Appliquer les changements", 20, 1, 25, 400, 250, 40, colorOff, colorOn, 2, black);
 }
 
 
@@ -63,6 +75,38 @@ EditorBar::~EditorBar() {
 }
 
 
+void EditorBar::input(SDL_Event event) {
+    switch (event.type) {
+        case SDL_KEYDOWN:
+            if (event.key.keysym.sym == SDLK_LSHIFT){
+                this->inputMapname.setShift(true);
+                this->inputMapW.setShift(true);
+                this->inputMapH.setShift(true);
+            }
+            if (this->fen == 2){
+                if (this->inputMapname.getWrite()){
+                    this->inputMapname.giveInput(event.key.keysym.sym);
+                }
+                else if (this->inputMapW.getWrite()){
+                    this->inputMapW.giveInput(event.key.keysym.sym);
+                }
+                else if (this->inputMapH.getWrite()){
+                    this->inputMapH.giveInput(event.key.keysym.sym);
+                }
+            }
+            break;
+
+        case SDL_KEYUP:
+            if (event.key.keysym.sym == SDLK_LSHIFT){
+                this->inputMapname.setShift(false);
+                this->inputMapW.setShift(false);
+                this->inputMapH.setShift(false);
+            }
+            break;
+    }
+}
+
+
 void EditorBar::tick() {
     if (this->butTuile.clicOnButton()){
         this->fen = 0;
@@ -92,6 +136,15 @@ void EditorBar::tick() {
         }
         if (this->butTuilePique.clicOnButton()){
             this->choice = 4;
+        }
+    }
+    else if (this->fen == 2){
+        if (this->inputMapname.getValue() != this->mapName || atoi(this->inputMapW.getValue()) != this->mapW || atoi(this->inputMapH.getValue()) != this->mapH){
+            if (this->butValiderInputMap.clicOnButton()){
+                this->mapName = this->inputMapname.getValue();
+                this->mapW = atoi(this->inputMapW.getValue());
+                this->mapH = atoi(this->inputMapH.getValue());
+            }
         }
     }
 }
@@ -160,6 +213,19 @@ void EditorBar::draw(SDL_Renderer *renderer) {
             SDL_RenderDrawRect(renderer, &rect3); // Dessin du carré
         }
     }
+    else if (this->fen == 2){
+        drawText(renderer, "Nom de la carte", 20, 150, 160, 1, black);
+        this->inputMapname.draw(renderer);
+
+        drawText(renderer, "Dimension de la carte", 20, 150, 240, 1, black);
+        this->inputMapW.draw(renderer);
+        drawText(renderer, "X", 20, 150, 275, 1, black);
+        this->inputMapH.draw(renderer);
+
+        if (this->inputMapname.getValue() != this->mapName || atoi(this->inputMapW.getValue()) != this->mapW || atoi(this->inputMapH.getValue()) != this->mapH){
+            this->butValiderInputMap.draw(renderer);
+        }
+    }
 }
 
 
@@ -170,4 +236,19 @@ int EditorBar::getFen() {
 
 int EditorBar::getChoice() {
     return this->choice;
+}
+
+
+std::string EditorBar::getMapname() {
+    return this->mapName;
+}
+
+
+int EditorBar::getMapW() {
+    return this->mapW;
+}
+
+
+int EditorBar::getMapH() {
+    return this->mapH;
 }

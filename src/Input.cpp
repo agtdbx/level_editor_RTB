@@ -182,6 +182,10 @@ void Input::setShift(bool state) {
     this->shift = state;
 }
 
+void Input::setValue(std::string value) {
+    this->value = value;
+}
+
 char *Input::getValue() {
     return const_cast<char*>(this->value.c_str());
 }
