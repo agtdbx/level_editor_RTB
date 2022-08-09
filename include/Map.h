@@ -8,14 +8,15 @@
 #include <iostream>
 #include <vector>
 #include "../include/Tuile.h"
-#include "../include/Checkpoint.h"
+#include "../include/Zone.h"
 #include <SDL_image.h>
 
 class Map {
 private:
-    std::vector<Checkpoint> checkpoints;
+    std::vector<Zone> checkpoints;
     std::vector<std::vector<Tuile>> map;
-    int w, h, startX, startY, endX, endY, squareSize;
+    int w, h, squareSize;
+    Zone start, end;
 
     void initEmptyMap();
     std::vector<std::vector<Tuile>> copyMap();
@@ -29,16 +30,16 @@ public:
     Tuile get(int x, int y);
     bool test(int x, int y);
     int getSquarreSize();
-    int getStartX();
-    int getStartY();
-    int getEndX();
-    int getEndY();
+    void setStart(Zone start);
+    Zone getStart();
+    void setEnd(Zone end);
+    Zone getEnd();
     int getWidth();
     int getHeigth();
-    std::vector<Checkpoint> getCheckpoint();
-    Checkpoint testCheckpoint(float x, float y, int w, int h);
+    std::vector<Zone> getCheckpoint();
+    Zone testCheckpoint(float x, float y, int w, int h);
     void set(int x, int y, Tuile t);
-    void addCheckpoint(Checkpoint checkpoint);
+    void addCheckpoint(Zone checkpoint);
     void resize(int mapW, int mapH);
 };
 

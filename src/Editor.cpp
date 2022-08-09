@@ -161,10 +161,25 @@ void Editor::saveMap() {
     json["heigth"] = this->map.getHeigth();
     json["square_size"] = this->map.getSquarreSize();
 
+    // Sauvegarde du debut
+    Json::Value debut;
+    Zone start = this->map.getStart();
+    debut["x"] = start.getX();
+    debut["y"] = start.getY();
+    json["start"] = debut;
+
+    // Sauvegarde de la fin
+    Json::Value fin;
+    Zone end = this->map.getEnd();
+    fin["x"] = end.getX();
+    fin["y"] = end.getY();
+    json["end"] = fin;
+
+    // Sauvegarde des checkpoints
     Json::Value checks;
-    std::vector<Checkpoint> checkpoints = this->map.getCheckpoint();
+    std::vector<Zone> checkpoints = this->map.getCheckpoint();
     for (int i = 0; i < checkpoints.size(); i++){
-        Checkpoint checkpoint = checkpoints[i];
+        Zone checkpoint = checkpoints[i];
         Json::Value check;
         check["x"] = checkpoint.getX();
         check["y"] = checkpoint.getY();
@@ -173,6 +188,7 @@ void Editor::saveMap() {
     }
     json["checkpoints"] = checks;
 
+    // Sauvegarde de la map
     Json::Value map;
     for (int x = 0; x < this->map.getWidth(); x++){
         for (int y = 0; y < this->map.getHeigth(); y++){

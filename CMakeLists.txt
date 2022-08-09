@@ -3,7 +3,7 @@ project(editeur_RTB)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(editeur_RTB src/main.cpp src/Menu.cpp include/Menu.h src/Button.cpp include/Button.h src/Functions.cpp include/Functions.h src/Select.cpp include/Select.h src/Switch.cpp include/Switch.h src/Input.cpp include/Input.h src/Editor.cpp include/Editor.h src/Map.cpp include/Map.h src/Tuile.cpp include/Tuile.h src/Camera.cpp include/Camera.h src/Checkpoint.cpp include/Checkpoint.h src/EditorBar.cpp include/EditorBar.h)
+add_executable(editeur_RTB src/main.cpp src/Menu.cpp include/Menu.h src/Button.cpp include/Button.h src/Functions.cpp include/Functions.h src/Select.cpp include/Select.h src/Switch.cpp include/Switch.h src/Input.cpp include/Input.h src/Editor.cpp include/Editor.h src/Map.cpp include/Map.h src/Tuile.cpp include/Tuile.h src/Camera.cpp include/Camera.h src/EditorBar.cpp include/EditorBar.h src/Zone.cpp include/Zone.h)
 
 INCLUDE_DIRECTORIES(/usr/local)
 

@@ -53,10 +53,8 @@ std::vector<std::vector<Tuile>> Map::copyMap() {
 Map::Map() {
     this->w = 32;
     this->h = 18;
-    this->startX = 100;
-    this->startY = 100;
-    this->endX = 200;
-    this->endY = 200;
+    this->start = Zone(1, 1, "start");
+    this->end = Zone(3, 3, "end");
     this->squareSize = 20;
 
     initEmptyMap();
@@ -65,10 +63,8 @@ Map::Map() {
 Map::Map(int w, int h, int squareSize) {
     this->w = w;
     this->h = h;
-    this->startX = 100;
-    this->startY = 100;
-    this->endX = 200;
-    this->endY = 200;
+    this->start = Zone(1, 1, "start");
+    this->end = Zone(3, 3, "end");
     this->squareSize = squareSize;
 
     initEmptyMap();
@@ -90,6 +86,9 @@ void Map::draw(SDL_Renderer *renderer, Camera camera, int winW, int winH) {
             }
         }
     }
+
+    this->start.draw(renderer, camera);
+    this->end.draw(renderer, camera);
 }
 
 
@@ -108,30 +107,30 @@ int Map::getSquarreSize() {
 }
 
 
-int Map::getStartX() {
-    return this->startX;
+void Map::setStart(Zone start) {
+    this->start = start;
 }
 
 
-int Map::getStartY() {
-    return this->startY;
+Zone Map::getStart() {
+    return this->start;
 }
 
 
-int Map::getEndX() {
-    return this->endX;
+void Map::setEnd(Zone end) {
+    this->end = end;
 }
 
 
-int Map::getEndY() {
-    return this->endY;
+Zone Map::getEnd() {
+    return this->end;
 }
 
 
-Checkpoint Map::testCheckpoint(float x, float y, int w, int h) {
-    Checkpoint rep = Checkpoint(0, 0, -1);
+Zone Map::testCheckpoint(float x, float y, int w, int h) {
+    Zone rep = Zone(0, 0, -1);
 
-    for (Checkpoint checkpoint : this->checkpoints){
+    for (Zone checkpoint : this->checkpoints){
         if (checkpoint.getX() <= (x + w) && (checkpoint.getX() + 3*20) >= x && checkpoint.getY() <= (y + h) && (checkpoint.getY() + 3*20) >= y){
             rep = checkpoint;
         }
@@ -151,7 +150,7 @@ int Map::getHeigth() {
 }
 
 
-std::vector<Checkpoint> Map::getCheckpoint() {
+std::vector<Zone> Map::getCheckpoint() {
     return this->checkpoints;
 }
 
@@ -161,7 +160,7 @@ void Map::set(int x, int y, Tuile t) {
 }
 
 
-void Map::addCheckpoint(Checkpoint checkpoint) {
+void Map::addCheckpoint(Zone checkpoint) {
     this->checkpoints.push_back(checkpoint);
 }
 

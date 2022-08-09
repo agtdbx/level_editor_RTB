@@ -126,15 +126,15 @@ build CMakeFiles/editeur_RTB.dir/src/Camera.cpp.o: CXX_COMPILER__editeur_RTB_Deb
   OBJECT_DIR = CMakeFiles/editeur_RTB.dir
   OBJECT_FILE_DIR = CMakeFiles/editeur_RTB.dir/src
 
-build CMakeFiles/editeur_RTB.dir/src/Checkpoint.cpp.o: CXX_COMPILER__editeur_RTB_Debug /home/auguste/Documents/Projet_perso/C++/editeur_RTB/src/Checkpoint.cpp || cmake_object_order_depends_target_editeur_RTB
-  DEP_FILE = CMakeFiles/editeur_RTB.dir/src/Checkpoint.cpp.o.d
+build CMakeFiles/editeur_RTB.dir/src/EditorBar.cpp.o: CXX_COMPILER__editeur_RTB_Debug /home/auguste/Documents/Projet_perso/C++/editeur_RTB/src/EditorBar.cpp || cmake_object_order_depends_target_editeur_RTB
+  DEP_FILE = CMakeFiles/editeur_RTB.dir/src/EditorBar.cpp.o.d
   FLAGS = -g
   INCLUDES = -I/usr/local -I/usr/include/SDL2
   OBJECT_DIR = CMakeFiles/editeur_RTB.dir
   OBJECT_FILE_DIR = CMakeFiles/editeur_RTB.dir/src
 
-build CMakeFiles/editeur_RTB.dir/src/EditorBar.cpp.o: CXX_COMPILER__editeur_RTB_Debug /home/auguste/Documents/Projet_perso/C++/editeur_RTB/src/EditorBar.cpp || cmake_object_order_depends_target_editeur_RTB
-  DEP_FILE = CMakeFiles/editeur_RTB.dir/src/EditorBar.cpp.o.d
+build CMakeFiles/editeur_RTB.dir/src/Zone.cpp.o: CXX_COMPILER__editeur_RTB_Debug /home/auguste/Documents/Projet_perso/C++/editeur_RTB/src/Zone.cpp || cmake_object_order_depends_target_editeur_RTB
+  DEP_FILE = CMakeFiles/editeur_RTB.dir/src/Zone.cpp.o.d
   FLAGS = -g
   INCLUDES = -I/usr/local -I/usr/include/SDL2
   OBJECT_DIR = CMakeFiles/editeur_RTB.dir
@@ -148,7 +148,7 @@ build CMakeFiles/editeur_RTB.dir/src/EditorBar.cpp.o: CXX_COMPILER__editeur_RTB_
 #############################################
 # Link the executable editeur_RTB
 
-build editeur_RTB: CXX_EXECUTABLE_LINKER__editeur_RTB_Debug CMakeFiles/editeur_RTB.dir/src/main.cpp.o CMakeFiles/editeur_RTB.dir/src/Menu.cpp.o CMakeFiles/editeur_RTB.dir/src/Button.cpp.o CMakeFiles/editeur_RTB.dir/src/Functions.cpp.o CMakeFiles/editeur_RTB.dir/src/Select.cpp.o CMakeFiles/editeur_RTB.dir/src/Switch.cpp.o CMakeFiles/editeur_RTB.dir/src/Input.cpp.o CMakeFiles/editeur_RTB.dir/src/Editor.cpp.o CMakeFiles/editeur_RTB.dir/src/Map.cpp.o CMakeFiles/editeur_RTB.dir/src/Tuile.cpp.o CMakeFiles/editeur_RTB.dir/src/Camera.cpp.o CMakeFiles/editeur_RTB.dir/src/Checkpoint.cpp.o CMakeFiles/editeur_RTB.dir/src/EditorBar.cpp.o
+build editeur_RTB: CXX_EXECUTABLE_LINKER__editeur_RTB_Debug CMakeFiles/editeur_RTB.dir/src/main.cpp.o CMakeFiles/editeur_RTB.dir/src/Menu.cpp.o CMakeFiles/editeur_RTB.dir/src/Button.cpp.o CMakeFiles/editeur_RTB.dir/src/Functions.cpp.o CMakeFiles/editeur_RTB.dir/src/Select.cpp.o CMakeFiles/editeur_RTB.dir/src/Switch.cpp.o CMakeFiles/editeur_RTB.dir/src/Input.cpp.o CMakeFiles/editeur_RTB.dir/src/Editor.cpp.o CMakeFiles/editeur_RTB.dir/src/Map.cpp.o CMakeFiles/editeur_RTB.dir/src/Tuile.cpp.o CMakeFiles/editeur_RTB.dir/src/Camera.cpp.o CMakeFiles/editeur_RTB.dir/src/EditorBar.cpp.o CMakeFiles/editeur_RTB.dir/src/Zone.cpp.o
   FLAGS = -g
   LINK_LIBRARIES = -lSDL2  -lSDL2_ttf  -lSDL2  -lSDL2_image  -lSDL2  -lSDL2_mixer  -lSDL2  -ljsoncpp  -lSDL2_ttf  -lSDL2_image  -lSDL2_mixer  -ljsoncpp
   OBJECT_DIR = CMakeFiles/editeur_RTB.dir

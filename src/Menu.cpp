@@ -472,13 +472,22 @@ bool Menu::loadMap() {
         this->filename = json["filename"].asString();
         this->mapname = json["name"].asString();
 
-        // Vérifier ques les noms soit les bons, et pourquoi l'affichage bug
-
         int w = json["width"].asInt();
         int h = json["heigth"].asInt();
         int size = json["square_size"].asInt();
         this->map = Map(w, h, size);
 
+        // Chargement du debut
+        Json::Value debut = json["start"];
+        Zone start = Zone(debut["x"].asInt(), debut["y"].asInt(), "start");
+        this->map.setStart(start);
+
+        // Chargement de la fin
+        Json::Value fin = json["end"];
+        Zone end = Zone(fin["x"].asInt(), fin["y"].asInt(), "end");
+        this->map.setEnd(end);
+
+        // Chargement des checkpoints
         Json::Value checkpoints = json["checkpoints"];
         if (checkpoints.isArray()){
             for (int i = 0; i < checkpoints.size(); i++){
@@ -488,7 +497,7 @@ bool Menu::loadMap() {
                 int y = check["y"].asInt();
                 int id = check["id"].asInt();
 
-                Checkpoint checkpoint = Checkpoint(x, y, id);
+                Zone checkpoint = Zone(x, y, id);
                 this->map.addCheckpoint(checkpoint);
             }
         }
