@@ -22,10 +22,10 @@ void Map::initEmptyMap() {
         for (int j = 0; j < this->h; ++j){
             Tuile tuile;
             if (i == 0 || i == this->w-1 || j == 0 || j == this->h-1){
-                tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "mur");
+                tuile = Tuile(i, j, this->squareSize, "mur");
             }
             else{
-                tuile = Tuile(i*this->squareSize, j*this->squareSize, this->squareSize, "air");
+                tuile = Tuile(i, j, this->squareSize, "air");
             }
             vector.push_back(tuile);
         }
@@ -81,7 +81,7 @@ void Map::draw(SDL_Renderer *renderer, Camera camera, int winW, int winH) {
     int minY = -20;
     for (int i = 0; i < this->w; ++i) {
         for (int j = 0; j < this->h; ++j) {
-            if (minX <= i*20 - camera.getX() && i*20 - camera.getX() <= winW && minY <= j*20 - camera.getY() && j*20 - camera.getY() <= winH){
+            if (minX <= i*this->squareSize - camera.getX() && i*this->squareSize - camera.getX() <= winW && minY <= j*this->squareSize - camera.getY() && j*this->squareSize - camera.getY() <= winH){
                 this->map[i][j].draw(renderer, camera);
             }
         }
@@ -109,6 +109,15 @@ int Map::getSquarreSize() {
 
 void Map::setStart(Zone start) {
     this->start = start;
+
+    int x = start.getX();
+    int y = start.getY();
+    this->map[x][y] = Tuile(x, y, 20, "air");
+    this->map[x+1][y] = Tuile(x+1, y, 20, "air");
+    this->map[x][y+1] = Tuile(x, y+1, 20, "air");
+    this->map[x+1][y+1] = Tuile(x+1, y+1, 20, "air");
+    this->map[x][y+2] = Tuile(x, y+2, 20, "air");
+    this->map[x+1][y+2] = Tuile(x+1, y+2, 20, "air");
 }
 
 
@@ -119,6 +128,15 @@ Zone Map::getStart() {
 
 void Map::setEnd(Zone end) {
     this->end = end;
+
+    int x = end.getX();
+    int y = end.getY();
+    this->map[x][y] = Tuile(x, y, 20, "air");
+    this->map[x+1][y] = Tuile(x+1, y, 20, "air");
+    this->map[x][y+1] = Tuile(x, y+1, 20, "air");
+    this->map[x+1][y+1] = Tuile(x+1, y+1, 20, "air");
+    this->map[x][y+2] = Tuile(x, y+2, 20, "air");
+    this->map[x+1][y+2] = Tuile(x+1, y+2, 20, "air");
 }
 
 

@@ -63,7 +63,7 @@ void Zone::draw(SDL_Renderer *renderer, Camera camera) {
 
 
 bool Zone::inZone(int tx, int ty) {
-    return tx >= this->x && tx <= this->x + this->w && ty >= this->y && ty <= this->y + this->h;
+    return tx >= this->x && tx < this->x + this->w && ty >= this->y && ty < this->y + this->h;
 }
 
 

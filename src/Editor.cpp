@@ -110,10 +110,20 @@ void Editor::render() {
             SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
         }
 
-        SDL_Rect rect = {x, y, 20, 20};
-        SDL_Rect rect2 = {x+1, y+1, 18, 18};
-        SDL_RenderDrawRect(this->renderer, &rect);
-        SDL_RenderDrawRect(this->renderer, &rect2);
+        int choice = this->editorBar.getChoice();
+
+        if (choice >= 0){
+            SDL_Rect rect = {x, y, 20, 20};
+            SDL_Rect rect2 = {x+1, y+1, 18, 18};
+            SDL_RenderDrawRect(this->renderer, &rect);
+            SDL_RenderDrawRect(this->renderer, &rect2);
+        }
+        else{
+            SDL_Rect rect = {x, y, 40, 60};
+            SDL_Rect rect2 = {x+1, y+1, 38, 58};
+            SDL_RenderDrawRect(this->renderer, &rect);
+            SDL_RenderDrawRect(this->renderer, &rect2);
+        }
     }
 
     switch (this->fenetre) {
@@ -231,31 +241,52 @@ void Editor::mouseClic() {
         if (tx > 0 && tx < this->map.getWidth()-1 && ty > 0 && ty < this->map.getHeigth()-1){
             if ((buttons & SDL_BUTTON_LMASK) != 0){
                 if (this->editorBar.getFen() == 0){
-                    std::string type = "mur";
+                    int choice = this->editorBar.getChoice();
+                    if (choice >= 0){
+                        if (!this->map.getStart().inZone(tx, ty) & !this->map.getEnd().inZone(tx, ty)){
+                            std::string type = "mur";
 
-                    switch (this->editorBar.getChoice()) {
-                        case 0:
-                            type = "mur";
-                            break;
+                            switch (choice) {
+                                case 0:
+                                    type = "mur";
+                                    break;
 
-                        case 1:
-                            type = "air";
-                            break;
+                                case 1:
+                                    type = "air";
+                                    break;
 
-                        case 2:
-                            type = "slime";
-                            break;
+                                case 2:
+                                    type = "slime";
+                                    break;
 
-                        case 3:
-                            type = "glace";
-                            break;
+                                case 3:
+                                    type = "glace";
+                                    break;
 
-                        case 4:
-                            type = "pique";
-                            break;
+                                case 4:
+                                    type = "pique";
+                                    break;
+                            }
+                            Tuile t = Tuile(tx, ty, 20, type);
+                            this->map.set(tx, ty, t);
+                        }
                     }
-                    Tuile t = Tuile(tx*20, ty*20, 20, type);
-                    this->map.set(tx, ty, t);
+                    else{
+                        if (tx > 0 && tx < this->map.getWidth()-2 && ty > 0 && ty < this->map.getHeigth()-3){
+                            if (choice == -1){
+                                Zone start = Zone(tx, ty, "start");
+                                this->map.setStart(start);
+                            }
+                            else if (choice == -2){
+                                Zone end = Zone(tx, ty, "end");
+                                this->map.setEnd(end);
+                            }
+//                            else if (choice == -3){
+//                                Zone check = Zone(tx, ty, 0);
+//                                this->map.addCheckpoint(check);
+//                            }
+                        }
+                    }
                 }
             }
         }

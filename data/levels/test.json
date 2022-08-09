@@ -1,8 +1,8 @@
 {
    "checkpoints" : null,
    "end" : {
-      "x" : 3,
-      "y" : 3
+      "x" : 17,
+      "y" : 16
    },
    "filename" : "test",
    "heigth" : 20,
@@ -2012,7 +2012,7 @@
    "square_size" : 20,
    "start" : {
       "x" : 1,
-      "y" : 1
+      "y" : 16
    },
    "width" : 20
 }

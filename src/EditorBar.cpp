@@ -11,6 +11,11 @@ void EditorBar::initButtons() {
     SDL_Color black = {0, 0, 0, 255};
     SDL_Color transparent = {0, 0, 0, 0};
     SDL_Color gray= {150, 150, 150, 150};
+
+    SDL_Color debut = {200, 50, 50, 255};
+    SDL_Color fin = {50, 50, 200, 255};
+    SDL_Color check = {50, 200, 50, 255};
+
     SDL_Color mur = {0, 0, 0, 255};
     SDL_Color air = {255, 255, 255, 255};
     SDL_Color slime = {0, 255, 0, 255};
@@ -25,12 +30,15 @@ void EditorBar::initButtons() {
     this->butGraphique =    Button("Graphique", 20, 2, 100, 100, 100, 50, transparent, gray, 2, black);
     this->butMap =          Button("Map",       20, 2, 200, 100, 100, 50, transparent, gray, 2, black);
 
-    // Boutons pour le choix de tuile
-    this->butTuileMur =   Button(" ", 10, 1, 60, 200, 60, 60, mur, mur, 2, black);
-    this->butTuileAir =   Button(" ", 10, 1, 180, 200, 60, 60, air, air, 2, black);
-    this->butTuileSlime = Button(" ", 10, 1, 60, 320, 60, 60, slime, slime, 2, black);
-    this->butTuileGlace = Button(" ", 10, 1, 180, 320, 60, 60, glace, glace, 2, black);
-    this->butTuilePique = Button(" ", 10, 1, 60, 440, 60, 60, pique, pique, 2, black);
+    // Boutons pour le choix de zone et de tuile
+    this->butZoneStart =      Button(" ", 10, 1, 30, 200, 60, 60, debut, debut, 2, black);
+    this->butZoneEnd =        Button(" ", 10, 1, 120, 200, 60, 60, fin, fin, 2, black);
+    this->butZoneCheckpoint = Button(" ", 10, 1, 210, 200, 60, 60, check, check, 2, black);
+    this->butTuileMur =   Button(" ", 10, 1, 30, 330, 60, 60, mur, mur, 2, black);
+    this->butTuileAir =   Button(" ", 10, 1, 120, 330, 60, 60, air, air, 2, black);
+    this->butTuileSlime = Button(" ", 10, 1, 210, 330, 60, 60, slime, slime, 2, black);
+    this->butTuileGlace = Button(" ", 10, 1, 30, 430, 60, 60, glace, glace, 2, black);
+    this->butTuilePique = Button(" ", 10, 1, 120, 430, 60, 60, pique, pique, 2, black);
 
     // Boutons pour l'onglet map
     this->inputMapname = Input(" ", 20, 1, 20, false, 50, 190, 200, 30, colorOff, colorOn, 2, black, black);
@@ -122,19 +130,28 @@ void EditorBar::tick() {
     }
 
     if (this->fen == 0){
-        if (this->butTuileMur.clicOnButton()){
+        if (this->butZoneStart.clicOnButton()){
+            this->choice = -1;
+        }
+        else if (this->butZoneEnd.clicOnButton()){
+            this->choice = -2;
+        }
+        else if (this->butZoneCheckpoint.clicOnButton()){
+            this->choice = -3;
+        }
+        else if (this->butTuileMur.clicOnButton()){
             this->choice = 0;
         }
-        if (this->butTuileAir.clicOnButton()){
+        else if (this->butTuileAir.clicOnButton()){
             this->choice = 1;
         }
-        if (this->butTuileSlime.clicOnButton()){
+        else if (this->butTuileSlime.clicOnButton()){
             this->choice = 2;
         }
-        if (this->butTuileGlace.clicOnButton()){
+        else if (this->butTuileGlace.clicOnButton()){
             this->choice = 3;
         }
-        if (this->butTuilePique.clicOnButton()){
+        else if (this->butTuilePique.clicOnButton()){
             this->choice = 4;
         }
     }
@@ -167,43 +184,67 @@ void EditorBar::draw(SDL_Renderer *renderer) {
     this->butMap.draw(renderer);
 
     if (this->fen == 0){
+        drawText(renderer, "Zones", 25, 150, 170, 1, black);
+        this->butZoneStart.draw(renderer);
+        drawText(renderer, "debut", 20, 60, 260, 1, black);
+        this->butZoneEnd.draw(renderer);
+        drawText(renderer, "fin", 20, 150, 260, 1, black);
+        this->butZoneCheckpoint.draw(renderer);
+        drawText(renderer, "checkpoint", 20, 240, 260, 1, black);
+
+        drawText(renderer, "Tuiles", 25, 150, 300, 1, black);
         this->butTuileMur.draw(renderer);
-        drawText(renderer, "mur", 20, 90, 260, 1, black);
+        drawText(renderer, "mur", 20, 60, 390, 1, black);
         this->butTuileAir.draw(renderer);
-        drawText(renderer, "air", 20, 210, 260, 1, black);
+        drawText(renderer, "air", 20, 150, 390, 1, black);
         this->butTuileSlime.draw(renderer);
-        drawText(renderer, "slime", 20, 90, 380, 1, black);
+        drawText(renderer, "slime", 20, 240, 390, 1, black);
         this->butTuileGlace.draw(renderer);
-        drawText(renderer, "glace", 20, 210, 380, 1, black);
+        drawText(renderer, "glace", 20, 60, 490, 1, black);
         this->butTuilePique.draw(renderer);
-        drawText(renderer, "pique", 20, 90, 500, 1, black);
+        drawText(renderer, "pique", 20, 150, 490, 1, black);
 
         int x = 0;
         int y = 0;
         switch (this->choice) {
-            case 0:
-                x = 60;
+            case -1:
+                x = 30;
                 y = 200;
+                break;
+
+            case -2:
+                x = 120;
+                y = 200;
+                break;
+
+            case -3:
+                x = 210;
+                y = 200;
+                break;
+
+            case 0:
+                x = 30;
+                y = 330;
                 break;
 
             case 1:
-                x = 180;
-                y = 200;
+                x = 120;
+                y = 330;
                 break;
 
             case 2:
-                x = 60;
-                y = 320;
+                x = 210;
+                y = 330;
                 break;
 
             case 3:
-                x = 180;
-                y = 320;
+                x = 30;
+                y = 430;
                 break;
 
             case 4:
-                x = 60;
-                y = 440;
+                x = 120;
+                y = 430;
                 break;
         }
 

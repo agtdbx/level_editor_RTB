@@ -510,7 +510,7 @@ bool Menu::loadMap() {
             int y = t["y"].asInt();
             std::string type = t["type"].asString();
 
-            Tuile tuile = Tuile(x * size, y * size, size, const_cast<char*>(type.c_str()));
+            Tuile tuile = Tuile(x, y, size, const_cast<char*>(type.c_str()));
             this->map.set(x, y, tuile);
         }
 

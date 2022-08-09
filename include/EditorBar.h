@@ -16,7 +16,7 @@ private:
     std::string mapName;
     bool mouseOver;
     Button butTuile, butGraphique, butMap,
-            butTuileMur, butTuileAir, butTuileSlime, butTuileGlace, butTuilePique,
+            butZoneStart, butZoneEnd, butZoneCheckpoint, butTuileMur, butTuileAir, butTuileSlime, butTuileGlace, butTuilePique,
             butValiderInputMap;
     Input inputMapname, inputMapW, inputMapH;
 
