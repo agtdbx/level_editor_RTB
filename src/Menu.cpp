@@ -39,7 +39,6 @@ void Menu::initButton() {
 
     // Chargement
     this->inputLoadName = Input("Nom du fichier", 40, 1,20, false, this->winW/2 - 250, this->winH/2 - 100, 500, 50, colorOff, colorOn,2, black, writeColor);
-    this->inputLoadName.setValue("test");
     this->butValiderCharger = Button("Valider", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
     this->butRetourCharger = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 

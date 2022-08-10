@@ -7,7 +7,7 @@
       }
    ],
    "end" : {
-      "x" : 17,
+      "x" : 19,
       "y" : 16
    },
    "filename" : "test",
@@ -134,7 +134,7 @@
          "y" : 3
       },
       {
-         "type" : "air",
+         "type" : "pique",
          "x" : 1,
          "y" : 4
       },
@@ -229,7 +229,7 @@
          "y" : 2
       },
       {
-         "type" : "air",
+         "type" : "pique",
          "x" : 2,
          "y" : 3
       },
@@ -324,7 +324,7 @@
          "y" : 1
       },
       {
-         "type" : "air",
+         "type" : "pique",
          "x" : 3,
          "y" : 2
       },
@@ -394,17 +394,17 @@
          "y" : 15
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 3,
          "y" : 16
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 3,
          "y" : 17
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 3,
          "y" : 18
       },
@@ -424,7 +424,7 @@
          "y" : 1
       },
       {
-         "type" : "air",
+         "type" : "pique",
          "x" : 4,
          "y" : 2
       },
@@ -494,17 +494,17 @@
          "y" : 15
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 4,
          "y" : 16
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 4,
          "y" : 17
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 4,
          "y" : 18
       },
@@ -524,7 +524,7 @@
          "y" : 1
       },
       {
-         "type" : "air",
+         "type" : "pique",
          "x" : 5,
          "y" : 2
       },
@@ -619,7 +619,7 @@
          "y" : 0
       },
       {
-         "type" : "air",
+         "type" : "pique",
          "x" : 6,
          "y" : 1
       },
@@ -1229,7 +1229,7 @@
          "y" : 2
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 12,
          "y" : 3
       },
@@ -1329,7 +1329,7 @@
          "y" : 2
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 13,
          "y" : 3
       },
@@ -1634,77 +1634,77 @@
          "y" : 3
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 4
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 5
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 6
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 7
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 8
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 9
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 10
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 11
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 12
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 13
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 14
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 15
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 16
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 16,
          "y" : 17
       },
       {
-         "type" : "mur",
+         "type" : "slime",
          "x" : 16,
          "y" : 18
       },
@@ -1739,72 +1739,72 @@
          "y" : 4
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 5
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 6
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 7
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 8
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 9
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 10
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 11
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 12
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 13
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 14
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 15
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 16
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 17
       },
       {
-         "type" : "air",
+         "type" : "mur",
          "x" : 17,
          "y" : 18
       },
@@ -1919,98 +1919,298 @@
          "y" : 0
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 1
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 2
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 3
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 4
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 5
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 6
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 7
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 8
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 9
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 10
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 11
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 12
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 13
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 14
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 15
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 16
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 17
       },
       {
-         "type" : "mur",
+         "type" : "air",
          "x" : 19,
          "y" : 18
       },
       {
          "type" : "mur",
          "x" : 19,
+         "y" : 19
+      },
+      {
+         "type" : "mur",
+         "x" : 20,
+         "y" : 0
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 1
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 2
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 3
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 4
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 5
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 6
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 7
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 8
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 9
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 10
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 11
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 12
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 13
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 14
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 15
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 16
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 17
+      },
+      {
+         "type" : "air",
+         "x" : 20,
+         "y" : 18
+      },
+      {
+         "type" : "mur",
+         "x" : 20,
+         "y" : 19
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 0
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 1
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 2
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 3
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 4
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 5
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 6
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 7
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 8
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 9
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 10
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 11
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 12
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 13
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 14
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 15
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 16
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 17
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
+         "y" : 18
+      },
+      {
+         "type" : "mur",
+         "x" : 21,
          "y" : 19
       }
    ],
@@ -2020,5 +2220,5 @@
       "x" : 1,
       "y" : 16
    },
-   "width" : 20
+   "width" : 22
 }
