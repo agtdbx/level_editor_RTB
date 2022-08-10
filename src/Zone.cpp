@@ -3,7 +3,7 @@
 //
 
 #include "../include/Zone.h"
-
+#include "../include/Functions.h"
 
 // Private methods
 
@@ -59,6 +59,12 @@ void Zone::draw(SDL_Renderer *renderer, Camera camera) {
     int y = this->y * 20 - camera.getY();
     SDL_Rect rect = {x, y, this->w * 20, this->h * 20};
     SDL_RenderFillRect(renderer, &rect);
+
+    if (this->color.g == 200){
+        std::string id = std::to_string(this->id);
+        char* idStr = const_cast<char*>(id.c_str());
+        drawText(renderer, idStr, 20, x + this->w*10, y, 2, {0, 0, 0, 255});
+    }
 }
 
 
@@ -79,4 +85,9 @@ int Zone::getY() {
 
 int Zone::getId() {
     return this->id;
+}
+
+
+void Zone::setId(int id) {
+    this->id = id;
 }

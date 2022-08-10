@@ -40,6 +40,7 @@ public:
     Zone testCheckpoint(float x, float y, int w, int h);
     void set(int x, int y, Tuile t);
     void addCheckpoint(Zone checkpoint);
+    void removeCheckpoint(int id);
     void resize(int mapW, int mapH);
 };
 

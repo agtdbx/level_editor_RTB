@@ -26,6 +26,7 @@ public:
     int getX();
     int getY();
     int getId();
+    void setId(int id);
 };
 
 

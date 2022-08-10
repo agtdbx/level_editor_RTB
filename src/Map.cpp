@@ -89,6 +89,10 @@ void Map::draw(SDL_Renderer *renderer, Camera camera, int winW, int winH) {
 
     this->start.draw(renderer, camera);
     this->end.draw(renderer, camera);
+
+    for (Zone check : this->checkpoints){
+        check.draw(renderer, camera);
+    }
 }
 
 
@@ -180,6 +184,15 @@ void Map::set(int x, int y, Tuile t) {
 
 void Map::addCheckpoint(Zone checkpoint) {
     this->checkpoints.push_back(checkpoint);
+}
+
+
+void Map::removeCheckpoint(int id) {
+    this->checkpoints.erase(this->checkpoints.cbegin() + id);
+
+    for (int i = 0; i < this->checkpoints.size(); i++){
+        this->checkpoints[i].setId(i);
+    }
 }
 
 

@@ -244,31 +244,45 @@ void Editor::mouseClic() {
                     int choice = this->editorBar.getChoice();
                     if (choice >= 0){
                         if (!this->map.getStart().inZone(tx, ty) & !this->map.getEnd().inZone(tx, ty)){
-                            std::string type = "mur";
+                            int checkId = -1;
 
-                            switch (choice) {
-                                case 0:
-                                    type = "mur";
+                            for (Zone check : this->map.getCheckpoint()){
+                                if (check.inZone(tx, ty)){
+                                    checkId = check.getId();
                                     break;
-
-                                case 1:
-                                    type = "air";
-                                    break;
-
-                                case 2:
-                                    type = "slime";
-                                    break;
-
-                                case 3:
-                                    type = "glace";
-                                    break;
-
-                                case 4:
-                                    type = "pique";
-                                    break;
+                                }
                             }
-                            Tuile t = Tuile(tx, ty, 20, type);
-                            this->map.set(tx, ty, t);
+
+                            if (checkId == -1){
+                                std::string type = "mur";
+
+                                switch (choice) {
+                                    case 0:
+                                        type = "mur";
+                                        break;
+
+                                    case 1:
+                                        type = "air";
+                                        break;
+
+                                    case 2:
+                                        type = "slime";
+                                        break;
+
+                                    case 3:
+                                        type = "glace";
+                                        break;
+
+                                    case 4:
+                                        type = "pique";
+                                        break;
+                                }
+                                Tuile t = Tuile(tx, ty, 20, type);
+                                this->map.set(tx, ty, t);
+                            }
+                            else{
+                                this->map.removeCheckpoint(checkId);
+                            }
                         }
                     }
                     else{
@@ -281,10 +295,13 @@ void Editor::mouseClic() {
                                 Zone end = Zone(tx, ty, "end");
                                 this->map.setEnd(end);
                             }
-//                            else if (choice == -3){
-//                                Zone check = Zone(tx, ty, 0);
-//                                this->map.addCheckpoint(check);
-//                            }
+                            else if (choice == -3){
+                                int id = this->map.getCheckpoint().size();
+                                Zone check = Zone(tx, ty, id);
+                                this->map.addCheckpoint(check);
+                                float wait = (float)SDL_GetTicks()/1000.0f;
+                                while ((float)SDL_GetTicks()/1000.0f - wait < 0.2){}
+                            }
                         }
                     }
                 }
