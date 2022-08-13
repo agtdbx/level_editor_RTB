@@ -197,9 +197,14 @@ void Map::removeCheckpoint(int id) {
 
 
 void Map::resize(int mapW, int mapH) {
-    std::cout << "RESIZE : " << this->w << "x" << this->h << " en " << mapW << "x" << mapH << std::endl;
     std::vector<std::vector<Tuile>> copyMap = this->copyMap();
 
+    if (mapW < 16){
+        mapW = 16;
+    }
+    if (mapH < 9){
+        mapH = 9;
+    }
     this->w = mapW;
     this->h = mapH;
     this->initEmptyMap();
@@ -210,5 +215,47 @@ void Map::resize(int mapW, int mapH) {
                 this->map[x][y] = copyMap[x][y];
             }
         }
+    }
+
+    // Changement de la place du début s'il n'est plus dans la map
+    while (this->start.getX() <= 0){
+        this->start.setPos(this->start.getX()+1, this->start.getY());
+    }
+    while (this->start.getX() >= this->map.size()-2){
+        this->start.setPos(this->start.getX()-1, this->start.getY());
+    }
+    while (this->start.getY() <= 0){
+        this->start.setPos(this->start.getX(), this->start.getY()+1);
+    }
+    while (this->start.getY() >= this->map[0].size()-3){
+        this->start.setPos(this->start.getX(), this->start.getY()-1);
+    }
+    this->setStart(this->start);
+
+    // Changement de la place de la fin s'il n'est plus dans la map
+    while (this->end.getX() <= 0){
+        this->end.setPos(this->end.getX()+1, this->end.getY());
+    }
+    while (this->end.getX() >= this->map.size()-2){
+        this->end.setPos(this->end.getX()-1, this->end.getY());
+    }
+    while (this->end.getY() <= 0){
+        this->end.setPos(this->end.getX(), this->end.getY()+1);
+    }
+    while (this->end.getY() >= this->map[0].size()-3){
+        this->end.setPos(this->end.getX(), this->end.getY()-1);
+    }
+    this->setEnd(this->end);
+
+    // On regarde quels checkpoints sont enn dehors de la map
+    std::vector<int> idToRemove;
+    for (Zone check : this->checkpoints){
+        if (check.getX() <= 0 || check.getX() >= this->map.size()-2 || check.getY() <= 0 || check.getY() >= this->map[0].size()-3){
+            idToRemove.push_back(check.getId());
+        }
+    }
+    // Puis on les supprime
+    for (int i = 0; i < idToRemove.size(); i++){
+        this->removeCheckpoint(idToRemove[i]-i);
     }
 }

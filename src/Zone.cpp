@@ -97,3 +97,9 @@ int Zone::getId() {
 void Zone::setId(int id) {
     this->id = id;
 }
+
+
+void Zone::setPos(int x, int y) {
+    this->x = x;
+    this->y = y;
+}

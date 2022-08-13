@@ -27,6 +27,7 @@ public:
     int getY();
     int getId();
     void setId(int id);
+    void setPos(int x, int y);
 };
 
 
