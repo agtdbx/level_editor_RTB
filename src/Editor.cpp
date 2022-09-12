@@ -276,6 +276,14 @@ void Editor::mouseClic() {
                                     case 4:
                                         type = "pique";
                                         break;
+
+                                    case 5:
+                                        type = "plateforme";
+                                        break;
+
+                                    case 6:
+                                        type = "eau";
+                                        break;
                                 }
                                 Tuile t = Tuile(tx, ty, 20, type);
                                 this->map.set(tx, ty, t);

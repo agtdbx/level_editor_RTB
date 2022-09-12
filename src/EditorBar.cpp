@@ -20,7 +20,9 @@ void EditorBar::initButtons() {
     SDL_Color air = {255, 255, 255, 255};
     SDL_Color slime = {0, 255, 0, 255};
     SDL_Color glace = {0, 255, 255, 255};
-    SDL_Color pique = {100, 100, 100, 255};
+    SDL_Color pique = {255, 0, 0, 255};
+    SDL_Color plateforme = {100, 100, 100, 255};
+    SDL_Color eau = {50, 50, 255, 255};
 
     SDL_Color colorOff = {255, 255, 255, 100};
     SDL_Color colorOn = {200, 200, 200, 200};
@@ -39,6 +41,8 @@ void EditorBar::initButtons() {
     this->butTuileSlime = Button(" ", 10, 1, 210, 330, 60, 60, slime, slime, 2, black);
     this->butTuileGlace = Button(" ", 10, 1, 30, 430, 60, 60, glace, glace, 2, black);
     this->butTuilePique = Button(" ", 10, 1, 120, 430, 60, 60, pique, pique, 2, black);
+    this->butTuilePlateforme =  Button(" ", 10, 1, 210, 430, 60, 60, plateforme, plateforme, 2, black);
+    this->butTuileEau =         Button(" ", 10, 1, 30, 530, 60, 60, eau, eau, 2, black);
 
     // Boutons pour l'onglet map
     this->inputMapname = Input(" ", 20, 1, 20, false, 50, 190, 200, 30, colorOff, colorOn, 2, black, black);
@@ -130,30 +134,26 @@ void EditorBar::tick() {
     }
 
     if (this->fen == 0){
-        if (this->butZoneStart.clicOnButton()){
+        if (this->butZoneStart.clicOnButton())
             this->choice = -1;
-        }
-        else if (this->butZoneEnd.clicOnButton()){
+        else if (this->butZoneEnd.clicOnButton())
             this->choice = -2;
-        }
-        else if (this->butZoneCheckpoint.clicOnButton()){
+        else if (this->butZoneCheckpoint.clicOnButton())
             this->choice = -3;
-        }
-        else if (this->butTuileMur.clicOnButton()){
+        else if (this->butTuileMur.clicOnButton())
             this->choice = 0;
-        }
-        else if (this->butTuileAir.clicOnButton()){
+        else if (this->butTuileAir.clicOnButton())
             this->choice = 1;
-        }
-        else if (this->butTuileSlime.clicOnButton()){
+        else if (this->butTuileSlime.clicOnButton())
             this->choice = 2;
-        }
-        else if (this->butTuileGlace.clicOnButton()){
+        else if (this->butTuileGlace.clicOnButton())
             this->choice = 3;
-        }
-        else if (this->butTuilePique.clicOnButton()){
+        else if (this->butTuilePique.clicOnButton())
             this->choice = 4;
-        }
+        else if (this->butTuilePlateforme.clicOnButton())
+            this->choice = 5;
+        else if (this->butTuileEau.clicOnButton())
+            this->choice = 6;
     }
     else if (this->fen == 2){
         if (this->inputMapname.getValue() != this->mapName || atoi(this->inputMapW.getValue()) != this->mapW || atoi(this->inputMapH.getValue()) != this->mapH){
@@ -193,16 +193,23 @@ void EditorBar::draw(SDL_Renderer *renderer) {
         drawText(renderer, "checkpoint", 20, 240, 260, 1, black);
 
         drawText(renderer, "Tuiles", 25, 150, 300, 1, black);
+
         this->butTuileMur.draw(renderer);
         drawText(renderer, "mur", 20, 60, 390, 1, black);
         this->butTuileAir.draw(renderer);
         drawText(renderer, "air", 20, 150, 390, 1, black);
         this->butTuileSlime.draw(renderer);
         drawText(renderer, "slime", 20, 240, 390, 1, black);
+
         this->butTuileGlace.draw(renderer);
         drawText(renderer, "glace", 20, 60, 490, 1, black);
         this->butTuilePique.draw(renderer);
         drawText(renderer, "pique", 20, 150, 490, 1, black);
+        this->butTuilePlateforme.draw(renderer);
+        drawText(renderer, "plateforme", 20, 240, 490, 1, black);
+
+        this->butTuileEau.draw(renderer);
+        drawText(renderer, "eau", 20, 60, 590, 1, black);
 
         int x = 0;
         int y = 0;
@@ -245,6 +252,21 @@ void EditorBar::draw(SDL_Renderer *renderer) {
             case 4:
                 x = 120;
                 y = 430;
+                break;
+
+            case 5:
+                x = 210;
+                y = 430;
+                break;
+
+            case 6:
+                x = 30;
+                y = 530;
+                break;
+
+            case 7:
+                x = 120;
+                y = 530;
                 break;
         }
 

@@ -27,21 +27,20 @@ Tuile::Tuile(int x, int y, int size, std::string type) {
     this->size = size;
     this->type = type;
 
-    if (this->type == "mur") {
+    if (this->type == "mur")
         this->color = {0, 0, 0, 255};
-    }
-    if (this->type == "air") {
+    else if (this->type == "air")
         this->color = {255, 255, 255, 255};
-    }
-    if (this->type == "slime") {
+    else if (this->type == "slime")
         this->color = {0, 255, 0, 255};
-    }
-    if (this->type == "glace") {
+    else if (this->type == "glace")
         this->color = {0, 255, 255, 255};
-    }
-    if (this->type == "pique") {
+    else if (this->type == "pique")
+        this->color = {255, 0, 0, 255};
+    else if (this->type == "plateforme")
         this->color = {100, 100, 100, 255};
-    }
+    else if (this->type == "eau")
+        this->color = {50, 50, 255, 255};
 }
 
 
@@ -60,7 +59,7 @@ void Tuile::draw(SDL_Renderer *renderer, Camera camera) {
 
 
 bool Tuile::isPassable() {
-    if (this->type == "air" || this->type == "pique") {
+    if (this->type == "air" || this->type == "pique" || this->type == "eau") {
         return true;
     }
     return false;
@@ -68,21 +67,20 @@ bool Tuile::isPassable() {
 
 
 int Tuile::touch() {
-    if (this->type == "mur") {
+    if (this->type == "mur")
         return 0;
-    }
-    if (this->type == "air") {
+    if (this->type == "air")
         return 1;
-    }
-    if (this->type == "slime") {
+    if (this->type == "slime")
         return 2;
-    }
-    if (this->type == "glace") {
+    if (this->type == "glace")
         return 3;
-    }
-    if (this->type == "pique") {
+    if (this->type == "pique")
         return 4;
-    }
+    if (this->type == "plateforme")
+        return 5;
+    if (this->type == "eau")
+        return 6;
     return -1;
 }
 
