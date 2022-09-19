@@ -4,7 +4,7 @@
 
 #include "../include/Editor.h"
 #include "../include/Functions.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <string>
 #include <ostream>
 #include <fstream>
@@ -160,7 +160,7 @@ void Editor::saveMap() {
     Json::Value json;
     // Sauvegarde des options
     std::ofstream myfile;
-    std::string file = "../data/levels/";
+    std::string file = "../RTB/data/levels/";
     file.append(this->filename);
     file.append(".json");
     myfile.open(file, std::fstream::out); // Ouverture du fichier

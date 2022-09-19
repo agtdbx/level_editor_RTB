@@ -5,7 +5,7 @@
 #ifndef RTB_BUTTON_H
 #define RTB_BUTTON_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 class Button {
 private:

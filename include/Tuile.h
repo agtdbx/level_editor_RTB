@@ -5,7 +5,7 @@
 #ifndef EDITEUR_RTB_TUILE_H
 #define EDITEUR_RTB_TUILE_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "../include/Camera.h"
 
 class Tuile {

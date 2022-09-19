@@ -3,7 +3,7 @@
 //
 
 #include "../include/Select.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "../include/Functions.h"
 
 //Private methods

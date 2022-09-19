@@ -5,6 +5,7 @@
 #include "../include/Menu.h"
 #include "../include/Functions.h"
 #include <string>
+#include <iostream>
 #include <ostream>
 #include <fstream>
 #include <sstream>
@@ -131,11 +132,11 @@ void Menu::tick() {
                     char * ch = this->inputNewH.getValue();
                     int w = atoi(cw);
                     int h = atoi(ch);
-                    if (w <= 16){
-                        w = 16;
+                    if (w <= 80){
+                        w = 80;
                     }
-                    if (h <= 9){
-                        h = 9;
+                    if (h <= 45){
+                        h = 45;
                     }
                     this->map = Map(w, h, 20);
                     this->mapname = this->inputNewName.getValue();
@@ -410,7 +411,7 @@ void Menu::saveOptions() {
     Json::Value json;
     // Sauvegarde des options
     std::ofstream myfile;
-    myfile.open ("../data/saves/options.json"); // Ouverture du fichier
+    myfile.open ("./data/saves/options.json"); // Ouverture du fichier
 
     json["resolution"] = this->butChoixRes.getValue();
     json["winW"] = this->winW;
@@ -426,13 +427,16 @@ void Menu::saveOptions() {
 
 void Menu::loadOptions() {
     Json::Value json;
-    std::ifstream myfile ("../data/saves/options.json");// Ouverture du fichier
-    myfile >> json;
+    Json::Reader reader;
+    std::ifstream myfile ("./data/saves/options.json");// Ouverture du fichier
+    reader.parse(myfile, json);
 
     this->butChoixRes.setValue(json["resolution"].asString());
     this->winW = json["winW"].asInt();
     this->winH = json["winH"].asInt();
     this->fullScreen.setActive(json["fullscreen"].asBool());
+
+    myfile.close();
 }
 
 
@@ -444,7 +448,7 @@ bool Menu::loadMap() {
     bool test = false;
     DIR *d;
     struct dirent *dir;
-    d = opendir("../data/levels/");
+    d = opendir("../RTB/data/levels/");
     if (d){
         while ((dir = readdir(d)) != NULL){
             std::string file_name = dir->d_name;
@@ -459,13 +463,14 @@ bool Menu::loadMap() {
 
     if (test){
         Json::Value json;
+        Json::Reader reader;
 
-        std::string filepath = "../data/levels/";
+        std::string filepath = "../RTB/data/levels/";
         filepath.append(file);
 
         std::ifstream myfile(filepath);
 
-        myfile >> json; // Récupération du fichier
+        reader.parse(myfile, json); // Récupération du fichier
         std::string fname = json["filename"].asString();
         std::string mname = json["name"].asString();
         this->filename = json["filename"].asString();

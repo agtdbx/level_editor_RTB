@@ -5,7 +5,7 @@
 #ifndef RTB_SWITCH_H
 #define RTB_SWITCH_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 class Switch {
 private:

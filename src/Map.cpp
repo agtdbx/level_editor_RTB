@@ -3,7 +3,7 @@
 //
 
 #include "../include/Map.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -51,8 +51,8 @@ std::vector<std::vector<Tuile>> Map::copyMap() {
 
 //public methods
 Map::Map() {
-    this->w = 32;
-    this->h = 18;
+    this->w = 80;
+    this->h = 45;
     this->start = Zone(1, 1, "start");
     this->end = Zone(3, 3, "end");
     this->squareSize = 20;
@@ -199,11 +199,11 @@ void Map::removeCheckpoint(int id) {
 void Map::resize(int mapW, int mapH) {
     std::vector<std::vector<Tuile>> copyMap = this->copyMap();
 
-    if (mapW < 16){
-        mapW = 16;
+    if (mapW < 80){
+        mapW = 80;
     }
-    if (mapH < 9){
-        mapH = 9;
+    if (mapH < 45){
+        mapH = 45;
     }
     this->w = mapW;
     this->h = mapH;

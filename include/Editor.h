@@ -5,7 +5,7 @@
 #ifndef EDITEUR_RTB_EDITOR_H
 #define EDITEUR_RTB_EDITOR_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "../include/Button.h"
 #include "../include/Map.h"
 #include "../include/Camera.h"

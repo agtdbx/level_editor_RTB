@@ -4,12 +4,12 @@
 
 #include "../include/Functions.h"
 
-#include <SDL.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 void drawText(SDL_Renderer *renderer , char *text, int textSize, int x, int y, int alignement, SDL_Color color){
     TTF_Font * font = 0;
-    font = TTF_OpenFont("../data/fonts/Roboto-Regular.ttf", textSize);
+    font = TTF_OpenFont("./data/fonts/Roboto-Regular.ttf", textSize);
     SDL_Surface * surface = TTF_RenderText_Blended(font, text, color);
     SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_Rect position;

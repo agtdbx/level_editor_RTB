@@ -9,7 +9,7 @@
 #include <vector>
 #include "../include/Tuile.h"
 #include "../include/Zone.h"
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 
 class Map {
 private:
