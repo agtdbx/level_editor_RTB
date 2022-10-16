@@ -61,7 +61,7 @@ void Zone::draw(SDL_Renderer *renderer, Camera camera) {
     SDL_RenderFillRect(renderer, &rect);
 
     if (this->color.r == 200){
-        drawText(renderer, "D", 20, x + this->w*10, y, 2, {0, 0, 0, 255});
+        drawText(renderer, (char *)"D", 20, x + this->w*10, y, 2, {0, 0, 0, 255});
     }
     else if (this->color.g == 200){
         std::string id = std::to_string(this->id);
@@ -69,7 +69,7 @@ void Zone::draw(SDL_Renderer *renderer, Camera camera) {
         drawText(renderer, idStr, 20, x + this->w*10, y, 2, {0, 0, 0, 255});
     }
     else if (this->color.b == 200){
-        drawText(renderer, "F", 20, x + this->w*10, y, 2, {0, 0, 0, 255});
+        drawText(renderer, (char *)"F", 20, x + this->w*10, y, 2, {0, 0, 0, 255});
     }
 }
 

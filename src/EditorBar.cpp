@@ -28,30 +28,30 @@ void EditorBar::initButtons() {
     SDL_Color colorOn = {200, 200, 200, 200};
 
     // Boutons de la barre de menu
-    this->butTuile =        Button("Tuile",     20, 2, 0,   100, 100, 50, transparent, gray, 2, black);
-    this->butGraphique =    Button("Graphique", 20, 2, 100, 100, 100, 50, transparent, gray, 2, black);
-    this->butMap =          Button("Map",       20, 2, 200, 100, 100, 50, transparent, gray, 2, black);
+    this->butTuile =        Button((char *)"Tuile",     20, 2, 0,   100, 100, 50, transparent, gray, 2, black);
+    this->butGraphique =    Button((char *)"Graphique", 20, 2, 100, 100, 100, 50, transparent, gray, 2, black);
+    this->butMap =          Button((char *)"Map",       20, 2, 200, 100, 100, 50, transparent, gray, 2, black);
 
     // Boutons pour le choix de zone et de tuile
-    this->butZoneStart =      Button(" ", 10, 1, 30, 200, 60, 60, debut, debut, 2, black);
-    this->butZoneEnd =        Button(" ", 10, 1, 120, 200, 60, 60, fin, fin, 2, black);
-    this->butZoneCheckpoint = Button(" ", 10, 1, 210, 200, 60, 60, check, check, 2, black);
-    this->butTuileMur =   Button(" ", 10, 1, 30, 330, 60, 60, mur, mur, 2, black);
-    this->butTuileAir =   Button(" ", 10, 1, 120, 330, 60, 60, air, air, 2, black);
-    this->butTuileSlime = Button(" ", 10, 1, 210, 330, 60, 60, slime, slime, 2, black);
-    this->butTuileGlace = Button(" ", 10, 1, 30, 430, 60, 60, glace, glace, 2, black);
-    this->butTuilePique = Button(" ", 10, 1, 120, 430, 60, 60, pique, pique, 2, black);
-    this->butTuilePlateforme =  Button(" ", 10, 1, 210, 430, 60, 60, plateforme, plateforme, 2, black);
-    this->butTuileEau =         Button(" ", 10, 1, 30, 530, 60, 60, eau, eau, 2, black);
+    this->butZoneStart =      Button((char *)" ", 10, 1, 30, 200, 60, 60, debut, debut, 2, black);
+    this->butZoneEnd =        Button((char *)" ", 10, 1, 120, 200, 60, 60, fin, fin, 2, black);
+    this->butZoneCheckpoint = Button((char *)" ", 10, 1, 210, 200, 60, 60, check, check, 2, black);
+    this->butTuileMur =   Button((char *)" ", 10, 1, 30, 330, 60, 60, mur, mur, 2, black);
+    this->butTuileAir =   Button((char *)" ", 10, 1, 120, 330, 60, 60, air, air, 2, black);
+    this->butTuileSlime = Button((char *)" ", 10, 1, 210, 330, 60, 60, slime, slime, 2, black);
+    this->butTuileGlace = Button((char *)" ", 10, 1, 30, 430, 60, 60, glace, glace, 2, black);
+    this->butTuilePique = Button((char *)" ", 10, 1, 120, 430, 60, 60, pique, pique, 2, black);
+    this->butTuilePlateforme =  Button((char *)" ", 10, 1, 210, 430, 60, 60, plateforme, plateforme, 2, black);
+    this->butTuileEau =         Button((char *)" ", 10, 1, 30, 530, 60, 60, eau, eau, 2, black);
 
     // Boutons pour l'onglet map
-    this->inputMapname = Input(" ", 20, 1, 20, false, 50, 190, 200, 30, colorOff, colorOn, 2, black, black);
+    this->inputMapname = Input((char *)" ", 20, 1, 20, false, 50, 190, 200, 30, colorOff, colorOn, 2, black, black);
     this->inputMapname.setValue(this->mapName);
-    this->inputMapW = Input(" ", 20, 1, 3, true, 90, 270, 45, 30, colorOff, colorOn, 2, black, black);
+    this->inputMapW = Input((char *)" ", 20, 1, 3, true, 90, 270, 45, 30, colorOff, colorOn, 2, black, black);
     this->inputMapW.setValue(std::to_string(this->mapW));
-    this->inputMapH = Input(" ", 20, 1, 3, true, 170, 270, 45, 30, colorOff, colorOn, 2, black, black);
+    this->inputMapH = Input((char *)" ", 20, 1, 3, true, 170, 270, 45, 30, colorOff, colorOn, 2, black, black);
     this->inputMapH.setValue(std::to_string(this->mapH));
-    this->butValiderInputMap = Button("Appliquer les changements", 20, 1, 25, 400, 250, 40, colorOff, colorOn, 2, black);
+    this->butValiderInputMap = Button((char *)"Appliquer les changements", 20, 1, 25, 400, 250, 40, colorOff, colorOn, 2, black);
 }
 
 
@@ -173,7 +173,7 @@ void EditorBar::draw(SDL_Renderer *renderer) {
     SDL_RenderFillRect(renderer, &rect); // Dessin du carré
 
     SDL_Color black = {0, 0, 0, 255};
-    drawText(renderer, "Editeur", 40, 150, 20, 1, black);
+    drawText(renderer, (char *)"Editeur", 40, 150, 20, 1, black);
 
     SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
     SDL_Rect rect2 = {100 * this->fen, 100, 100, 50}; // Création du carré (x, y, width, height)
@@ -184,32 +184,32 @@ void EditorBar::draw(SDL_Renderer *renderer) {
     this->butMap.draw(renderer);
 
     if (this->fen == 0){
-        drawText(renderer, "Zones", 25, 150, 170, 1, black);
+        drawText(renderer, (char *)"Zones", 25, 150, 170, 1, black);
         this->butZoneStart.draw(renderer);
-        drawText(renderer, "debut", 20, 60, 260, 1, black);
+        drawText(renderer, (char *)"debut", 20, 60, 260, 1, black);
         this->butZoneEnd.draw(renderer);
-        drawText(renderer, "fin", 20, 150, 260, 1, black);
+        drawText(renderer, (char *)"fin", 20, 150, 260, 1, black);
         this->butZoneCheckpoint.draw(renderer);
-        drawText(renderer, "checkpoint", 20, 240, 260, 1, black);
+        drawText(renderer, (char *)"checkpoint", 20, 240, 260, 1, black);
 
-        drawText(renderer, "Tuiles", 25, 150, 300, 1, black);
+        drawText(renderer, (char *)"Tuiles", 25, 150, 300, 1, black);
 
         this->butTuileMur.draw(renderer);
-        drawText(renderer, "mur", 20, 60, 390, 1, black);
+        drawText(renderer, (char *)"mur", 20, 60, 390, 1, black);
         this->butTuileAir.draw(renderer);
-        drawText(renderer, "air", 20, 150, 390, 1, black);
+        drawText(renderer, (char *)"air", 20, 150, 390, 1, black);
         this->butTuileSlime.draw(renderer);
-        drawText(renderer, "slime", 20, 240, 390, 1, black);
+        drawText(renderer, (char *)"slime", 20, 240, 390, 1, black);
 
         this->butTuileGlace.draw(renderer);
-        drawText(renderer, "glace", 20, 60, 490, 1, black);
+        drawText(renderer, (char *)"glace", 20, 60, 490, 1, black);
         this->butTuilePique.draw(renderer);
-        drawText(renderer, "pique", 20, 150, 490, 1, black);
+        drawText(renderer, (char *)"pique", 20, 150, 490, 1, black);
         this->butTuilePlateforme.draw(renderer);
-        drawText(renderer, "plateforme", 20, 240, 490, 1, black);
+        drawText(renderer, (char *)"plateforme", 20, 240, 490, 1, black);
 
         this->butTuileEau.draw(renderer);
-        drawText(renderer, "eau", 20, 60, 590, 1, black);
+        drawText(renderer, (char *)"eau", 20, 60, 590, 1, black);
 
         int x = 0;
         int y = 0;
@@ -277,12 +277,12 @@ void EditorBar::draw(SDL_Renderer *renderer) {
         }
     }
     else if (this->fen == 2){
-        drawText(renderer, "Nom de la carte", 20, 150, 160, 1, black);
+        drawText(renderer, (char *)"Nom de la carte", 20, 150, 160, 1, black);
         this->inputMapname.draw(renderer);
 
-        drawText(renderer, "Dimension de la carte", 20, 150, 240, 1, black);
+        drawText(renderer, (char *)"Dimension de la carte", 20, 150, 240, 1, black);
         this->inputMapW.draw(renderer);
-        drawText(renderer, "X", 20, 150, 275, 1, black);
+        drawText(renderer, (char *)"X", 20, 150, 275, 1, black);
         this->inputMapH.draw(renderer);
 
         if (this->inputMapname.getValue() != this->mapName || atoi(this->inputMapW.getValue()) != this->mapW || atoi(this->inputMapH.getValue()) != this->mapH){

@@ -26,35 +26,38 @@ void Menu::initButton() {
 
 
     //Menu principal
-    this->butCreer   = Button("Creer"  , 40, 1, this->winW/2 - 100, this->winH/2 - 150, 200, 50, colorOff, colorOn, 2, black);
-    this->butCharger = Button("Charger", 40, 1, this->winW/2 - 100, this->winH/2 - 50 , 200, 50, colorOff, colorOn, 2, black);
-    this->butOptions = Button("Options", 40, 1,this->winW/2 - 100 , this->winH/2 + 50 , 200, 50, colorOff, colorOn, 2, black);
-    this->butQuitter = Button("Quitter", 40, 1, this->winW/2 - 100, this->winH/2 + 150, 200, 50, colorOff, colorOn, 2, black);
+    this->butCreer   = Button((char *)"Creer"  , 40, 1, this->winW/2 - 100, this->winH/2 - 150, 200, 50, colorOff, colorOn, 2, black);
+    this->butCharger = Button((char *)"Charger", 40, 1, this->winW/2 - 100, this->winH/2 - 50 , 200, 50, colorOff, colorOn, 2, black);
+    this->butOptions = Button((char *)"Options", 40, 1,this->winW/2 - 100 , this->winH/2 + 50 , 200, 50, colorOff, colorOn, 2, black);
+    this->butQuitter = Button((char *)"Quitter", 40, 1, this->winW/2 - 100, this->winH/2 + 150, 200, 50, colorOff, colorOn, 2, black);
 
     //Création d'une nouvelle map
-    this->inputNewName = Input("Nom de la map", 40, 1,20, false, this->winW/2 - 250, this->winH/2 - 100, 500, 50, colorOff, colorOn,2, black, writeColor);
-    this->inputNewW = Input("Largeur", 40, 1,3, true, this->winW/2 - 175, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
-    this->inputNewH = Input("Hauteur", 40, 1,3, true, this->winW/2 + 25, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
-    this->butValiderCreer = Button("Valider", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
-    this->butRetourCreer = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
+    this->inputNewName = Input((char *)"Nom de la map", 40, 1,20, false, this->winW/2 - 250, this->winH/2 - 100, 500, 50, colorOff, colorOn,2, black, writeColor);
+    this->inputNewW = Input((char *)"Largeur", 40, 1,3, true, this->winW/2 - 175, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
+    this->inputNewH = Input((char *)"Hauteur", 40, 1,3, true, this->winW/2 + 25, this->winH/2, 150, 50, colorOff, colorOn,2, black, writeColor);
+    this->butValiderCreer = Button((char *)"Valider", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
+    this->butRetourCreer = Button((char *)"Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 
     // Chargement
-    this->inputLoadName = Input("Nom du fichier", 40, 1,20, false, this->winW/2 - 250, this->winH/2 - 100, 500, 50, colorOff, colorOn,2, black, writeColor);
-    this->butValiderCharger = Button("Valider", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
-    this->butRetourCharger = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
+    this->inputLoadName = Input((char *)"Nom du fichier", 40, 1,20, false, this->winW/2 - 250, this->winH/2 - 100, 500, 50, colorOff, colorOn,2, black, writeColor);
+    this->butValiderCharger = Button((char *)"Valider", 40, 1, this->winW/2 - 100, this->winH/2 + 100, 200, 50, colorOff, colorOn,2, black);
+    this->butRetourCharger = Button((char *)"Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 
     //Options
     //Graphic
-    this->butGraphics = Button("Graphique", 30, 2, this->spacingWithScreen + this->borderSize, 75 + this->spacingWithScreen, 250-this->borderSize*2, 75-this->borderSize*2, colorOff, colorOn,0, black);
-    std::vector<char*> choixRes = {"1280x720", "1280x800", "1920x1080", "2560x1440"};
+    this->butGraphics = Button((char *)"Graphique", 30, 2, this->spacingWithScreen + this->borderSize, 75 + this->spacingWithScreen, 250-this->borderSize*2, 75-this->borderSize*2, colorOff, colorOn,0, black);
+    std::vector<char*> choixRes = { (char *)"1280x720",
+                                    (char *)"1280x800",
+                                    (char *)"1920x1080",
+                                    (char *)"2560x1440"};
 
-    this->butChoixRes = Select("1920x1080", 30, 1, this->winW/2 + 110, 250, 160, 40, colorOff, colorOn, choixRes, 2, black);
+    this->butChoixRes = Select((char *)"1920x1080", 30, 1, this->winW/2 + 110, 250, 160, 40, colorOff, colorOn, choixRes, 2, black);
     this->fullScreen = Switch(this->winW/2 - 20, 340, 80, 20, colorOff, blue, 2, black);
 
     //Credit
-    this->butCredit = Button("Credit", 30,2, this->spacingWithScreen + this->borderSize, 75*2 + this->spacingWithScreen - this->borderSize, 250-this->borderSize*2, 75-this->borderSize*2, colorOff, colorOn,0, black);
+    this->butCredit = Button((char *)"Credit", 30,2, this->spacingWithScreen + this->borderSize, 75*2 + this->spacingWithScreen - this->borderSize, 250-this->borderSize*2, 75-this->borderSize*2, colorOff, colorOn,0, black);
 
-    this->butRetourOptions = Button("Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
+    this->butRetourOptions = Button((char *)"Retour", 40, 1, this->winW/2 - 100, this->winH-50 - 100, 200, 50, colorOff, colorOn,2, black);
 }
 
 
@@ -207,7 +210,7 @@ void Menu::render() {
     SDL_Color color = {0, 0, 0, 255};
     switch (this->fenetre) {
         case 0:
-            drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
+            drawText(this->renderer, (char *)"RTB Editor !", 80, this->winW/2, 50, 1, color);
             this->butCreer.draw(this->renderer);
             this->butCharger.draw(this->renderer);
             this->butOptions.draw(this->renderer);
@@ -216,7 +219,7 @@ void Menu::render() {
             break;
 
         case 1:
-            drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
+            drawText(this->renderer, (char *)"RTB Editor !", 80, this->winW/2, 50, 1, color);
 
             this->inputNewName.draw(this->renderer);
             this->inputNewW.draw(this->renderer);
@@ -226,8 +229,8 @@ void Menu::render() {
             break;
 
         case 20:{
-            drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 10, 1, color);
-            drawText(this->renderer, "Options graphique", 50, this->winW/2, 100, 1, color);
+            drawText(this->renderer, (char *)"RTB Editor !", 80, this->winW/2, 10, 1, color);
+            drawText(this->renderer, (char *)"Options graphique", 50, this->winW/2, 100, 1, color);
             SDL_SetRenderDrawColor(this->renderer, 150, 150, 150, 100);
             SDL_Rect rect = {this->spacingWithScreen + this->borderSize, 75 + this->spacingWithScreen, 250-this->borderSize*2, 75-this->borderSize*2};
             SDL_RenderFillRect(this->renderer, &rect);
@@ -239,8 +242,8 @@ void Menu::render() {
             break;}
 
         case 23:{
-            drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 10, 1, color);
-            drawText(this->renderer, "Credit", 50, this->winW/2, 100, 1, color);
+            drawText(this->renderer, (char *)"RTB Editor !", 80, this->winW/2, 10, 1, color);
+            drawText(this->renderer, (char *)"Credit", 50, this->winW/2, 100, 1, color);
             SDL_SetRenderDrawColor(this->renderer, 150, 150, 150, 100);
             SDL_Rect rect = {this->spacingWithScreen + this->borderSize, 75*2 + this->spacingWithScreen - this->borderSize, 250-this->borderSize*2, 75-this->borderSize*2};
             SDL_RenderFillRect(this->renderer, &rect);
@@ -252,7 +255,7 @@ void Menu::render() {
             break;}
 
         case 3:
-            drawText(this->renderer, "RTB Editor !", 80, this->winW/2, 50, 1, color);
+            drawText(this->renderer, (char *)"RTB Editor !", 80, this->winW/2, 50, 1, color);
 
             this->inputLoadName.draw(this->renderer);
             this->butValiderCharger.draw(this->renderer);
@@ -276,7 +279,7 @@ void Menu::drawBaseOptions() {
     }
 
     SDL_Color color = {0, 0, 0, 255};
-    drawText(this->renderer, "Options", 40, x+width/2+this->spacingWithScreen+this->borderSize, y+ height/6 +this->spacingWithScreen+this->borderSize, 1, color);
+    drawText(this->renderer, (char *)"Options", 40, x+width/2+this->spacingWithScreen+this->borderSize, y+ height/6 +this->spacingWithScreen+this->borderSize, 1, color);
 
     //Case exterieure
     SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
@@ -309,7 +312,7 @@ void Menu::drawGraphicOptions() {
     SDL_Color color = {0, 0, 0, 255};
 
     //Choix résolution
-    drawText(this->renderer, "Resolution de l'ecran :", 30, this->winW/2 - 200, 250, 0, color);
+    drawText(this->renderer, (char *)"Resolution de l'ecran :", 30, this->winW/2 - 200, 250, 0, color);
     bool changeChoix = this->butChoixRes.draw(this->renderer);
 
     if (changeChoix){
@@ -317,7 +320,7 @@ void Menu::drawGraphicOptions() {
     }
 
     //Pleins écran
-    drawText(this->renderer, "Plein ecran :", 30, this->winW/2 - 200, 330, 0, color);
+    drawText(this->renderer, (char *)"Plein ecran :", 30, this->winW/2 - 200, 330, 0, color);
     bool fullScreen = this->fullScreen.draw(this->renderer);
 
     if (fullScreen){

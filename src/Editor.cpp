@@ -18,10 +18,10 @@ void Editor::initButton() {
     SDL_Color colorOff = {255, 255, 255, 100};
     SDL_Color colorOn = {200, 200, 200, 150};
     SDL_Color black = {0, 0, 0, 255};
-    this->butContinuer = Button("Retour", 40, 1, this->winW/2 - 100, this->winH/2 - 75, 200, 50, colorOff, colorOn,2, black);
-    this->butQuitAndSave = Button("Quitter et sauvegarder", 40, 1, this->winW/2 - 225, this->winH/2 + 25, 450, 50, colorOff, colorOn,2, black);
-    this->butQuitNoSave = Button("Quitter sans sauvegarder", 40, 1, this->winW/2 - 250, this->winH/2 + 125, 500, 50, colorOff, colorOn,2, black);
-    this->butRetourMenu = Button("Retour au menu", 40, 1, this->winW/2 - 150, this->winH/2 - 75, 300, 50, colorOff, colorOn,2, black);
+    this->butContinuer = Button((char *)"Retour", 40, 1, this->winW/2 - 100, this->winH/2 - 75, 200, 50, colorOff, colorOn,2, black);
+    this->butQuitAndSave = Button((char *)"Quitter et sauvegarder", 40, 1, this->winW/2 - 225, this->winH/2 + 25, 450, 50, colorOff, colorOn,2, black);
+    this->butQuitNoSave = Button((char *)"Quitter sans sauvegarder", 40, 1, this->winW/2 - 250, this->winH/2 + 125, 500, 50, colorOff, colorOn,2, black);
+    this->butRetourMenu = Button((char *)"Retour au menu", 40, 1, this->winW/2 - 150, this->winH/2 - 75, 300, 50, colorOff, colorOn,2, black);
 }
 
 void Editor::input() {
