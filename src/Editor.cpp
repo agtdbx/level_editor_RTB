@@ -110,9 +110,9 @@ void Editor::render() {
             SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
         }
 
-        int choice = this->editorBar.getChoice();
+        int fen = this->editorBar.getFen();
 
-        if (choice >= 0){
+        if (fen != 1){
             SDL_Rect rect = {x, y, 20, 20};
             SDL_Rect rect2 = {x+1, y+1, 18, 18};
             SDL_RenderDrawRect(this->renderer, &rect);
@@ -240,8 +240,8 @@ void Editor::mouseClic() {
 
         if (tx > 0 && tx < this->map.getWidth()-1 && ty > 0 && ty < this->map.getHeigth()-1){
             if ((buttons & SDL_BUTTON_LMASK) != 0){
+                int choice = this->editorBar.getChoice();
                 if (this->editorBar.getFen() == 0){
-                    int choice = this->editorBar.getChoice();
                     if (choice >= 0){
                         if (!this->map.getStart().inZone(tx, ty) & !this->map.getEnd().inZone(tx, ty)){
                             int checkId = -1;
@@ -293,29 +293,29 @@ void Editor::mouseClic() {
                             }
                         }
                     }
-                    else{
-                        if (tx > 0 && tx < this->map.getWidth()-2 && ty > 0 && ty < this->map.getHeigth()-3){
-                            if (choice == -1){
-                                Zone start = Zone(tx, ty, "start");
-                                this->map.setStart(start);
-                            }
-                            else if (choice == -2){
-                                Zone end = Zone(tx, ty, "end");
-                                this->map.setEnd(end);
-                            }
-                            else if (choice == -3){
-                                int id = this->map.getCheckpoint().size();
-                                Zone check = Zone(tx, ty, id);
-                                this->map.addCheckpoint(check);
-                                float wait = (float)SDL_GetTicks()/1000.0f;
-                                while ((float)SDL_GetTicks()/1000.0f - wait < 0.2){}
-                            }
+                }
+                else if (this->editorBar.getFen() == 1){
+                    if (tx > 0 && tx < this->map.getWidth()-2 && ty > 0 && ty < this->map.getHeigth()-3){
+                        if (choice == 0){
+                            Zone start = Zone(tx, ty, "start");
+                            this->map.setStart(start);
+                        }
+                        else if (choice == 1){
+                            Zone end = Zone(tx, ty, "end");
+                            this->map.setEnd(end);
+                        }
+                        else if (choice == 2){
+                            int id = this->map.getCheckpoint().size();
+                            Zone check = Zone(tx, ty, id);
+                            this->map.addCheckpoint(check);
+                            float wait = (float)SDL_GetTicks()/1000.0f;
+                            while ((float)SDL_GetTicks()/1000.0f - wait < 0.2){}
                         }
                     }
                 }
             }
         }
-        else{
+        else {
             this->mouseTarget = false;
         }
     }
