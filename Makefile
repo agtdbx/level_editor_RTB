@@ -1,52 +1,26 @@
-TARGET = RTB
-
-CC = g++
-
-OBJ = 	obj/main.o \
-		obj/Button.o \
-		obj/Camera.o \
-		obj/Editor.o \
-		obj/EditorBar.o \
-		obj/Functions.o \
-		obj/Input.o \
-		obj/Map.o \
-		obj/Menu.o \
-		obj/Select.o \
-		obj/Switch.o \
-		obj/Tuile.o \
-		obj/Zone.o
-
-INCLUDE = 	-I include/ \
-			-I src/jsoncpp-src-0.5.0/include
-
-SDL_FLAGS = -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
-
-JSON_FLAGS = -ljsoncpp
+MESON_CONFIG_DIR	:= build
+MESON_BUILD_DIR		:= release
 
 
-obj/%.o : src/%.cpp
-	$(CC) -o $@ -c $(INCLUDE) $^ $(SDL_FLAGS) $(JSON_FLAGS)
+all: build
+	ninja -C $(MESON_CONFIG_DIR)
+	ninja install -C $(MESON_CONFIG_DIR) >/dev/null
 
-bin/$(TARGET) : $(OBJ)
-	$(CC) -o $@ $(INCLUDE) $^ $(SDL_FLAGS) $(JSON_FLAGS)
+build:
+	meson $(MESON_CONFIG_DIR) --prefix=$$PWD/$(MESON_BUILD_DIR) --bindir="" --libdir=""
 
+clean:
+	rm -rf $(MESON_BUILD_DIR)
 
-run : bin/$(TARGET)
-	bin/$(TARGET)
+fclean: clean
+	rm -rf $(MESON_CONFIG_DIR)
 
-clean :
-	rm -f obj/*.o
+re: clean all
 
-fclean : clean
-	rm -f bin/$(TARGET)
+run: all
+	cd $(MESON_BUILD_DIR) && ./RTB_editor
 
-re : clean bin/$(TARGET)
+runval: all
+	cd $(MESON_BUILD_DIR) && valgrind ./RTB_editor
 
-install :
-	sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
-	sudo apt-get install libjsoncpp-dev
-	mkdir bin
-	mkdir obj
-
-
-.PHONY: run clean re install
+.PHONY: all clean fclean re run runval

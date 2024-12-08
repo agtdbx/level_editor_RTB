@@ -1,5 +1,5 @@
 {
-   "fullscreen" : true,
+   "fullscreen" : false,
    "resolution" : "1920x1080",
    "winH" : 1080,
    "winW" : 1920
