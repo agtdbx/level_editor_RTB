@@ -3,15 +3,15 @@
 //
 
 #include "../include/Map.h"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include "../include/Tuile.h"
-#include <jsoncpp/json/json.h>
-#include <jsoncpp/json/value.h>
-#include <jsoncpp/json/reader.h>
-#include <SDL2/SDL_image.h>
+#include <json/json.h>
+#include <json/value.h>
+#include <json/reader.h>
+#include <SDL_image.h>
 
 //private methods
 void Map::initEmptyMap() {

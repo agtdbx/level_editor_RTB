@@ -1,5 +1,6 @@
 MESON_CONFIG_DIR	:= build
 MESON_BUILD_DIR		:= release
+EXECUTABLE_NAME		:= RTB_editor
 
 
 all: build
@@ -15,12 +16,12 @@ clean:
 fclean: clean
 	rm -rf $(MESON_CONFIG_DIR)
 
-re: clean all
+re: fclean all
 
 run: all
-	cd $(MESON_BUILD_DIR) && ./RTB_editor
+	cd $(MESON_BUILD_DIR) && ./$(EXECUTABLE_NAME)
 
 runval: all
-	cd $(MESON_BUILD_DIR) && valgrind ./RTB_editor
+	cd $(MESON_BUILD_DIR) && valgrind ./$(EXECUTABLE_NAME)
 
 .PHONY: all clean fclean re run runval

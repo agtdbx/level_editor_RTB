@@ -6,7 +6,7 @@
 #define EDITEUR_RTB_EDITORBAR_H
 
 #include <string>
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "../include/Button.h"
 #include "../include/Input.h"
 

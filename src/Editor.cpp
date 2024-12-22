@@ -4,15 +4,15 @@
 
 #include "../include/Editor.h"
 #include "../include/Functions.h"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <string>
 #include <ostream>
 #include <fstream>
 #include <sstream>
-#include <jsoncpp/json/json.h>
-#include <jsoncpp/json/value.h>
-#include <jsoncpp/json/writer.h>
-#include <jsoncpp/json/reader.h>
+#include <json/json.h>
+#include <json/value.h>
+#include <json/writer.h>
+#include <json/reader.h>
 //Private methods
 void Editor::initButton() {
     SDL_Color colorOff = {255, 255, 255, 100};
@@ -160,7 +160,7 @@ void Editor::saveMap() {
     Json::Value json;
     // Sauvegarde des options
     std::ofstream myfile;
-    std::string file = "../RTB/data/levels/";
+    std::string file = "../../RTB/data/levels/";
     file.append(this->filename);
     file.append(".json");
     myfile.open(file, std::fstream::out); // Ouverture du fichier

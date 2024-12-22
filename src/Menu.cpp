@@ -9,10 +9,10 @@
 #include <ostream>
 #include <fstream>
 #include <sstream>
-#include <jsoncpp/json/json.h>
-#include <jsoncpp/json/value.h>
-#include <jsoncpp/json/writer.h>
-#include <jsoncpp/json/reader.h>
+#include <json/json.h>
+#include <json/value.h>
+#include <json/writer.h>
+#include <json/reader.h>
 #include <dirent.h>
 
 
@@ -451,7 +451,7 @@ bool Menu::loadMap() {
     bool test = false;
     DIR *d;
     struct dirent *dir;
-    d = opendir("../RTB/data/levels/");
+    d = opendir("../../RTB/data/levels/");
     if (d){
         while ((dir = readdir(d)) != NULL){
             std::string file_name = dir->d_name;
@@ -468,7 +468,7 @@ bool Menu::loadMap() {
         Json::Value json;
         Json::Reader reader;
 
-        std::string filepath = "../RTB/data/levels/";
+        std::string filepath = "../../RTB/data/levels/";
         filepath.append(file);
 
         std::ifstream myfile(filepath);

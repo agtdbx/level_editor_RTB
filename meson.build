@@ -1,11 +1,10 @@
 project('RTB_editor', 'cpp',
   version : '0.1',
-  default_options : ['warning_level=1', 'cpp_std=c++14'])
-
-
-
-conf_data = configuration_data()
-conf_data.set('DATA_PATH', get_option('prefix') + '/data')
+  default_options : [
+    'warning_level=1',
+    'cpp_std=c++14',
+    'default_library=static'
+  ])
 
 
 executable('RTB_editor',
@@ -22,15 +21,15 @@ executable('RTB_editor',
           'src/Switch.cpp',
           'src/Tuile.cpp',
           'src/Zone.cpp',
-       build_rpath: '.',
-           dependencies : [
-              dependency('sdl2'),
-              dependency('sdl2_image', static: true),
-              dependency('sdl2_ttf', static: true),
-              dependency('sdl2_mixer', static: true),
-              dependency('jsoncpp', static: true),
-              ],
-			include_directories: include_directories('include'),
-           install : true)
+          build_rpath: '.',
+          dependencies : [
+            dependency('sdl2'),
+            dependency('sdl2_image'),
+            dependency('sdl2_ttf'),
+            dependency('sdl2_mixer'),
+            dependency('jsoncpp'),
+            ],
+          include_directories: include_directories('include'),
+          install : true)
 
 install_subdir('data', install_dir:'.')

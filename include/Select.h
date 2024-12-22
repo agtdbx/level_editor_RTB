@@ -5,7 +5,7 @@
 #ifndef RTB_SELECT_H
 #define RTB_SELECT_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <iostream>
 #include <vector>
 

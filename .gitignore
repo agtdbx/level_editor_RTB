@@ -11,6 +11,8 @@ subprojects/libjson
 subprojects/libvorbis*
 subprojects/packagecache
 subprojects/SDL2_*
+subprojects/SDL2-*
 subprojects/freetype-*
 subprojects/libogg-*
 subprojects/libpng-*
+subprojects/jsoncpp-*
