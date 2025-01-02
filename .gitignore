@@ -14,5 +14,5 @@ subprojects/SDL2_*
 subprojects/SDL2-*
 subprojects/freetype-*
 subprojects/libogg-*
-subprojects/libpng-*
+subprojects/libpng*
 subprojects/jsoncpp-*

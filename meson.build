@@ -2,8 +2,7 @@ project('RTB_editor', 'cpp',
   version : '0.1',
   default_options : [
     'warning_level=1',
-    'cpp_std=c++14',
-    'default_library=static'
+    'cpp_std=c++14'
   ])
 
 
@@ -24,10 +23,10 @@ executable('RTB_editor',
           build_rpath: '.',
           dependencies : [
             dependency('sdl2'),
-            dependency('sdl2_image'),
-            dependency('sdl2_ttf'),
-            dependency('sdl2_mixer'),
-            dependency('jsoncpp'),
+            dependency('sdl2_image', static: true),
+            dependency('sdl2_ttf', static: true),
+            dependency('sdl2_mixer', static: true),
+            dependency('jsoncpp', static: true),
             ],
           include_directories: include_directories('include'),
           install : true)
