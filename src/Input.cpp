@@ -142,7 +142,7 @@ void Input::giveInput(int input) {
         }
         else if (input >= 48 && input <= 57){
             char c = input;
-            if (!this->shift && !this->intOnly){
+            if (this->shift && !this->intOnly){
                 if (input == 49){
                     c = '&';
                 }
